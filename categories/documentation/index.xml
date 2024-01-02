@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Documentation - Category - Taiferrous</title>
+        <title>Documentation - Category - CubeInfinity</title>
         <link>http://example.org/categories/documentation/</link>
-        <description>Documentation - Category - Taiferrous</description>
+        <description>Documentation - Category - CubeInfinity</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/categories/documentation/" rel="self" type="application/rss+xml" /></channel>
 </rss>

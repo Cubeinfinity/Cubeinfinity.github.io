@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>ubuntu启动hadoop初始配置 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="ubuntu启动hadoop初始配置" />
+<meta property="og:description" content="1 master 1.1 新建虚拟机(初始配置) master 内存设4g，内核2 虚拟硬盘60g 完成 启动继续安装（忽略下方的slave0）： 使用默认语言:Eng——insta" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-03T00:00:00+08:00" />
+<meta property="article:modified_time" content="2024-01-03T00:00:00+08:00" /><meta property="og:site_name" content="CubeInfinity" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="ubuntu启动hadoop初始配置"/>
+<meta name="twitter:description" content="1 master 1.1 新建虚拟机(初始配置) master 内存设4g，内核2 虚拟硬盘60g 完成 启动继续安装（忽略下方的slave0）： 使用默认语言:Eng——insta"/>
+<meta name="application-name" content="Hi!CUBE">
+<meta name="apple-mobile-web-app-title" content="Hi!CUBE"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" /><link rel="next" href="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ubuntu启动hadoop初始配置",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE\/"
+        },"genre": "posts","wordcount":  2221 ,
+        "url": "http:\/\/example.org\/posts\/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE\/","datePublished": "2024-01-03T00:00:00+08:00","dateModified": "2024-01-03T00:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/example.org\/images\/avatar.png",
+                    "width":  960 ,
+                    "height":  960 
+                }},"author": {
+                "@type": "Person",
+                "name": "Cai"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> 文章 </a><a class="menu-item" href="/tags/" title="Tags"> 标签 </a><a class="menu-item" href="/categories/" title="Categories"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">文章</a><a class="menu-item" href="/tags/" title="Tags">标签</a><a class="menu-item" href="/categories/" title="Categories">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ubuntu启动hadoop初始配置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Cai</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>大数据:Hadoop集群完全分布式</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2221 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-新建虚拟机初始配置">1.1 新建虚拟机(初始配置)</a>
+      <ul>
+        <li><a href="#110-安装增强功能">*1.1.0 安装增强功能</a></li>
+      </ul>
+    </li>
+    <li><a href="#12-安装初始软件">1.2 安装初始软件</a></li>
+    <li><a href="#13-配置静态网络">1.3 配置静态网络</a></li>
+    <li><a href="#14-新建用户">1.4 新建用户</a></li>
+    <li><a href="#15-安装软件-masterslave">1.5 安装软件-master&amp;slave</a>
+      <ul>
+        <li><a href="#150-用户赋权">*1.5.0 用户赋权</a></li>
+        <li><a href="#151-java安装">1.5.1 java安装</a></li>
+        <li><a href="#152-hadoop安装">1.5.2 hadoop安装</a></li>
+        <li><a href="#153-scala安装">1.5.3 scala安装</a></li>
+        <li><a href="#154-spark安装">1.5.4 spark安装</a></li>
+        <li><a href="#155-bashrc">1.5.5 .bashrc</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-初始配置">2.1 初始配置</a></li>
+    <li><a href="#22-安装软件-masterslave">2.2 安装软件-master&amp;slave</a>
+      <ul>
+        <li><a href="#220-用户赋权">*2.2.0 用户赋权</a></li>
+        <li><a href="#221-javahadoopscalaspark">2.2.1 java/hadoop/scala/spark</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-复制虚拟机">3.1 复制虚拟机</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-修改主机名">4.1 <strong>修改主机名</strong></a></li>
+    <li><a href="#42-设置-hosts-文件">4.2 <strong>设置 hosts 文件</strong></a></li>
+    <li><a href="#43-配置ssh-无密码登录">4.3 配置ssh 无密码登录</a>
+      <ul>
+        <li><a href="#错误展示">!错误展示</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1-master">1 master</h1>
+<h2 id="11-新建虚拟机初始配置">1.1 新建虚拟机(初始配置)</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221083757.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221083757.png, /asserts/bigdata/Pasted%20image%2020231221083757.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221083757.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221083757.png"
+        title="Pasted image 20231221083757.png" /></p>
+<p>master 内存设4g，内核2</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221083905.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221083905.png, /asserts/bigdata/Pasted%20image%2020231221083905.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221083905.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221083905.png"
+        title="/asserts/bigdata/Pasted%20image%2020231221083905.png" /></p>
+<p>虚拟硬盘60g</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221080358.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221080358.png, /asserts/bigdata/Pasted%20image%2020231221080358.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221080358.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221080358.png"
+        title="/asserts/bigdata/Pasted%20image%2020231221080358.png" /></p>
+<p>完成</p>
+<p>启动继续安装（忽略下方的slave0）：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221084149.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221084149.png, /asserts/bigdata/Pasted%20image%2020231221084149.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221084149.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221084149.png"
+        title="/asserts/bigdata/Pasted%20image%2020231221084149.png" /></p>
+<p>使用默认语言:Eng——install Ubuntu</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221081515.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221081515.png, /asserts/bigdata/Pasted%20image%2020231221081515.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221081515.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221081515.png"
+        title="Pasted image 20231221081515" /></p>
+<p>continue:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221081550.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221081550.png, /asserts/bigdata/Pasted%20image%2020231221081550.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221081550.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221081550.png"
+        title="Pasted image 20231221081550" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221081637.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221081637.png, /asserts/bigdata/Pasted%20image%2020231221081637.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221081637.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221081637.png"
+        title="Pasted image 20231221081637.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221082252.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221082252.png, /asserts/bigdata/Pasted%20image%2020231221082252.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221082252.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221082252.png"
+        title="Pasted image 20231221082252.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221082326.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221082326.png, /asserts/bigdata/Pasted%20image%2020231221082326.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221082326.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221082326.png"
+        title="Pasted image 20231221082326.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221082528.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221082528.png, /asserts/bigdata/Pasted%20image%2020231221082528.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221082528.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221082528.png"
+        title="Pasted image 20231221082528.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231220220330.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231220220330.png, /asserts/bigdata/Pasted%20image%2020231220220330.png 1.5x, /asserts/bigdata/Pasted%20image%2020231220220330.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231220220330.png"
+        title="Pasted image 20231220220330.png" /></p>
+<p>在这直接把电脑名改成master</p>
+<p>pwd:123456</p>
+<p>初始化：一律skip过去</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221084656.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221084656.png, /asserts/bigdata/Pasted%20image%2020231221084656.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221084656.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221084656.png"
+        title="Pasted image 20231221084656.png" />
+attention
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221084733.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221084733.png, /asserts/bigdata/Pasted%20image%2020231221084733.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221084733.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221084733.png"
+        title="Pasted image 20231221084733.png" /></p>
+<h3 id="110-安装增强功能">*1.1.0 安装增强功能</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221084847.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221084847.png, /asserts/bigdata/Pasted%20image%2020231221084847.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221084847.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221084847.png"
+        title="Pasted image 20231221084847.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221084955.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221084955.png, /asserts/bigdata/Pasted%20image%2020231221084955.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221084955.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221084955.png"
+        title="Pasted image 20231221084955.png" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221085030.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221085030.png, /asserts/bigdata/Pasted%20image%2020231221085030.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221085030.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221085030.png"
+        title="Pasted image 20231221085030.png" /></p>
+<p>设置一下共享文件夹</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221085145.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221085145.png, /asserts/bigdata/Pasted%20image%2020231221085145.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221085145.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221085145.png"
+        title="Pasted image 20231221085145.png" /></p>
+<p>设置共享粘贴板和拖放的双向</p>
+<p>重启</p>
+<h2 id="12-安装初始软件">1.2 安装初始软件</h2>
+<p><strong>安装openssh-server</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install openssh-server
+</span></span></code></pre></div><p>中途按一下[y] 下同</p>
+<p><strong>安装vim编辑器</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install vim
+</span></span></code></pre></div><p><strong>安装net-tools</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install net-tools
+</span></span></code></pre></div><h2 id="13-配置静态网络">1.3 配置静态网络</h2>
+<p>默认：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231220222849.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231220222849.png, /asserts/bigdata/Pasted%20image%2020231220222849.png 1.5x, /asserts/bigdata/Pasted%20image%2020231220222849.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231220222849.png"
+        title="Pasted image 20231220222849.png" /></p>
+<p>重新配桥接之后：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231220223238.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231220223238.png, /asserts/bigdata/Pasted%20image%2020231220223238.png 1.5x, /asserts/bigdata/Pasted%20image%2020231220223238.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231220223238.png"
+        title="Pasted image 20231220223238.png" /></p>
+<p>改成manual setting</p>
+<p>宿舍：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231220223506.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231220223506.png, /asserts/bigdata/Pasted%20image%2020231220223506.png 1.5x, /asserts/bigdata/Pasted%20image%2020231220223506.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231220223506.png"
+        title="Pasted image 20231220223506.png" />
+校内：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221102509.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221102509.png, /asserts/bigdata/Pasted%20image%2020231221102509.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221102509.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221102509.png"
+        title="Pasted image 20231221102509.png" /></p>
+<p>试ping</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231220223625.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231220223625.png, /asserts/bigdata/Pasted%20image%2020231220223625.png 1.5x, /asserts/bigdata/Pasted%20image%2020231220223625.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231220223625.png"
+        title="Pasted image 20231220223625.png" /></p>
+<h2 id="14-新建用户">1.4 新建用户</h2>
+<p>当你拥有的初始用户不参与集群配置，你需要新建一个专门用于集群配置的用户。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231220224416.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231220224416.png, /asserts/bigdata/Pasted%20image%2020231220224416.png 1.5x, /asserts/bigdata/Pasted%20image%2020231220224416.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231220224416.png"
+        title="Pasted image 20231220224416.png" /></p>
+<p>如果不想设置太复杂的密码(图形化页面新建的用户好像会强制要求用户密码复杂一些) 所以可以选择&quot;下次登录时设置&quot;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231220224557.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231220224557.png, /asserts/bigdata/Pasted%20image%2020231220224557.png 1.5x, /asserts/bigdata/Pasted%20image%2020231220224557.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231220224557.png"
+        title="Pasted image 20231220224557.png" />
+*此处博主设了123456</p>
+<h2 id="15-安装软件-masterslave">1.5 安装软件-master&amp;slave</h2>
+<p>这里是软件包安装！即把准备好的软件包放到共享文件夹下分发……很怂的方法……</p>
+<p>此处安装的软件是master和slave都要做的。</p>
+<h3 id="150-用户赋权">*1.5.0 用户赋权</h3>
+<p>把之前下载好的安装包拖放到master/slave的共享文件夹中 （host里执行）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221090253.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221090253.png, /asserts/bigdata/Pasted%20image%2020231221090253.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221090253.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221090253.png"
+        title="Pasted image 20231221090253.png" /></p>
+<p>启动master</p>
+<p>发现自己没有权限</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221090922.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221090922.png, /asserts/bigdata/Pasted%20image%2020231221090922.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221090922.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221090922.png"
+        title="Pasted image 20231221090922.png" /></p>
+<p>共享文件夹属于root用户，当前用户权限不足</p>
+<p>解决方法是提升当前用户权限：</p>
+<p>将自己登录的用户，添加到vboxsf组中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG vboxsf <span style="color:#66d9ef">$(</span>whoami<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p>报错(不能用sudo)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221091358.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221091358.png, /asserts/bigdata/Pasted%20image%2020231221091358.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221091358.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221091358.png"
+        title="Pasted image 20231221091358.png" /></p>
+<p>切换到root再试一次(不能用sudo)</p>
+<p>仍然频频报错：hadoop is not in the sudoers file</p>
+<p>意识到hadoop不是创建的<strong>第一个用户</strong>，重新登陆切换回一开始的master试试 （没设root密码）</p>
+<p>成功了…</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221092458.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221092458.png, /asserts/bigdata/Pasted%20image%2020231221092458.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221092458.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221092458.png"
+        title="Pasted image 20231221092458.png" /></p>
+<p>给hadoop提权 参照如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221093058.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221093058.png, /asserts/bigdata/Pasted%20image%2020231221093058.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221093058.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221093058.png"
+        title="Pasted image 20231221093058.png" /></p>
+<p>登录master给hadoop编辑上（hadoop用户没有编辑权限…不知为何，可能是因为没法sudo）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221103118.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221103118.png, /asserts/bigdata/Pasted%20image%2020231221103118.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221103118.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221103118.png"
+        title="Pasted image 20231221103118.png" /></p>
+<p>重启系统，成功：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221103527.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221103527.png, /asserts/bigdata/Pasted%20image%2020231221103527.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221103527.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221103527.png"
+        title="Pasted image 20231221103527.png" /></p>
+<p>把共享文件夹中的安装粘贴到自己的Download下。</p>
+<h3 id="151-java安装">1.5.1 java安装</h3>
+<p>*注意 由于一共有4个软件要装，于是决定一次性写环境变量了。（写在1.5.5）</p>
+<p>解压 tab解压</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221104709.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221104709.png, /asserts/bigdata/Pasted%20image%2020231221104709.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221104709.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221104709.png"
+        title="Pasted image 20231221104709.png" /></p>
+<p>测试可用性：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221104815.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221104815.png, /asserts/bigdata/Pasted%20image%2020231221104815.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221104815.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221104815.png"
+        title="Pasted image 20231221104815.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221104905.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221104905.png, /asserts/bigdata/Pasted%20image%2020231221104905.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221104905.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221104905.png"
+        title="Pasted image 20231221104905.png" /></p>
+<p>带路径运行测试：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221105016.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221105016.png, /asserts/bigdata/Pasted%20image%2020231221105016.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221105016.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221105016.png"
+        title="Pasted image 20231221105016.png" /></p>
+<p>配置JAVA_HOME</p>
+<p>java包先换个位置：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221105636.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221105636.png, /asserts/bigdata/Pasted%20image%2020231221105636.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221105636.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221105636.png"
+        title="Pasted image 20231221105636.png" /></p>
+<p>配置环境路径</p>
+<p>配置之前先拷一份</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221110006.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221110006.png, /asserts/bigdata/Pasted%20image%2020231221110006.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221110006.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221110006.png"
+        title="Pasted image 20231221110006.png" /></p>
+<p>添加路径：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221110430.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221110430.png, /asserts/bigdata/Pasted%20image%2020231221110430.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221110430.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221110430.png"
+        title="Pasted image 20231221110430.png" /></p>
+<p>读取文件使生效</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221110519.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221110519.png, /asserts/bigdata/Pasted%20image%2020231221110519.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221110519.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221110519.png"
+        title="Pasted image 20231221110519.png" /></p>
+<h3 id="152-hadoop安装">1.5.2 hadoop安装</h3>
+<p>解压并移动</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221110852.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221110852.png, /asserts/bigdata/Pasted%20image%2020231221110852.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221110852.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221110852.png"
+        title="Pasted image 20231221110852.png" /></p>
+<p>配置 <code>.bashrc</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221111348.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221111348.png, /asserts/bigdata/Pasted%20image%2020231221111348.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221111348.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221111348.png"
+        title="Pasted image 20231221111348.png" /></p>
+<p>配置hadoop内部jdk路径</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi /usr/hadoop/etc/hadoop/hadoop-env.sh
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221112752.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221112752.png, /asserts/bigdata/Pasted%20image%2020231221112752.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221112752.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221112752.png"
+        title="Pasted image 20231221112752.png" /></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export JAVA_HOME<span style="color:#f92672">=</span>/usr/java
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221111806.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221111806.png, /asserts/bigdata/Pasted%20image%2020231221111806.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221111806.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221111806.png"
+        title="Pasted image 20231221111806.png" /></p>
+<p>成功</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221113302.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221113302.png, /asserts/bigdata/Pasted%20image%2020231221113302.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221113302.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221113302.png"
+        title="Pasted image 20231221113302.png" /></p>
+<h3 id="153-scala安装">1.5.3 scala安装</h3>
+<p>解压移动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar -zxvf scala-2.12.15.tgz
+</span></span><span style="display:flex;"><span>ls
+</span></span></code></pre></div><p>加入路径</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221114433.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221114433.png, /asserts/bigdata/Pasted%20image%2020231221114433.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221114433.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221114433.png"
+        title="Pasted image 20231221114433.png" /></p>
+<p>验证：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221114816.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221114816.png, /asserts/bigdata/Pasted%20image%2020231221114816.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221114816.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221114816.png"
+        title="Pasted image 20231221114816.png" /></p>
+<h3 id="154-spark安装">1.5.4 spark安装</h3>
+<p>解压移动</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar -zxvf spark-3.5.0-bin-hadoop3.tgz
+</span></span><span style="display:flex;"><span>ls
+</span></span><span style="display:flex;"><span>sudo mv spark-3.5.0-bin-hadoop3 /usr/spark
+</span></span></code></pre></div><p>路径添加</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221115618.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221115618.png, /asserts/bigdata/Pasted%20image%2020231221115618.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221115618.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221115618.png"
+        title="Pasted image 20231221115618.png" /></p>
+<p>验证</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221120008.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221120008.png, /asserts/bigdata/Pasted%20image%2020231221120008.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221120008.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221120008.png"
+        title="Pasted image 20231221120008.png" /></p>
+<h3 id="155-bashrc">1.5.5 .bashrc</h3>
+<p>最终环境路径应添加配置：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bashrc" data-lang="bashrc"><span style="display:flex;"><span><span style="color:#75715e">#my</span>
+</span></span><span style="display:flex;"><span>export JAVA_HOME<span style="color:#f92672">=</span>/usr/java
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$JAVA_HOME/bin:$PATH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export HADOOP_HOME<span style="color:#f92672">=</span>/usr/hadoop
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export SCALA_HOME<span style="color:#f92672">=</span>/usr/scala
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$SCALA_HOME/bin:$PATH
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export SPARK_HOME<span style="color:#f92672">=</span>/usr/spark
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$SPARK_HOME/bin:$PATH
+</span></span></code></pre></div><h1 id="2-slave0">2 slave0</h1>
+<h2 id="21-初始配置">2.1 初始配置</h2>
+<p>此处吸取第一次配时的教训，一次性设好。（Yourname:hadoop computername:slave0 username:hadoop）这样会默认生成一个有权限较高的初始用户hadoop。(同名hadoop是为了集群配置方便)</p>
+<p>slave节点暂时不用太大。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221080255.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221080255.png, /asserts/bigdata/Pasted%20image%2020231221080255.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221080255.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221080255.png"
+        title="Pasted image 20231221080255.png" /></p>
+<p>完成：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221080442.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221080442.png, /asserts/bigdata/Pasted%20image%2020231221080442.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221080442.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221080442.png"
+        title="Pasted image 20231221080442.png" /></p>
+<p>slave 不用太复杂的配置</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221082140.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221082140.png, /asserts/bigdata/Pasted%20image%2020231221082140.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221082140.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221082140.png"
+        title="Pasted image 20231221082140.png" /></p>
+<p>将用户名也设为:hadoop （这里就直接设吧）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221082641.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221082641.png, /asserts/bigdata/Pasted%20image%2020231221082641.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221082641.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221082641.png"
+        title="Pasted image 20231221082641.png" /></p>
+<p>pwd：123456</p>
+<p>配slave0的时候没网，所以决定暂时先不配静态网络，先安装java hadoop scala spark</p>
+<p>*增强功能：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231220232339.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231220232339.png, /asserts/bigdata/Pasted%20image%2020231220232339.png 1.5x, /asserts/bigdata/Pasted%20image%2020231220232339.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231220232339.png"
+        title="Pasted image 20231220232339.png" /></p>
+<h2 id="22-安装软件-masterslave">2.2 安装软件-master&amp;slave</h2>
+<h3 id="220-用户赋权">*2.2.0 用户赋权</h3>
+<p>检测权限，发现初始用户的权限相当地高：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221121135.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221121135.png, /asserts/bigdata/Pasted%20image%2020231221121135.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221121135.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221121135.png"
+        title="Pasted image 20231221121135.png" /></p>
+<p>赋权（为共享文件夹)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG vboxsf <span style="color:#66d9ef">$(</span>whoami<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#这步不用做了</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#本身就能执行sudo命令所以不用再编辑sudoers组；</span>
+</span></span></code></pre></div><h3 id="221-javahadoopscalaspark">2.2.1 java/hadoop/scala/spark</h3>
+<p>与上方流程一致，不赘述</p>
+<ul>
+<li>不过环境变量可以先配；
+<ul>
+<li>先拷一份.bashrc</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp .bashrc .bashrc_bak
+</span></span></code></pre></div><pre tabindex="0"><code></code></pre></li>
+</ul>
+<p>配置见上 .bashrc的部分(master .bashrc)</p>
+<h1 id="3-slave1">3 slave1</h1>
+<h2 id="31-复制虚拟机">3.1 复制虚拟机</h2>
+<p>slave0 右键复制</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221125434.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221125434.png, /asserts/bigdata/Pasted%20image%2020231221125434.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221125434.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221125434.png"
+        title="Pasted image 20231221125434.png" /></p>
+<p>配置选项</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221125535.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221125535.png, /asserts/bigdata/Pasted%20image%2020231221125535.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221125535.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221125535.png"
+        title="Pasted image 20231221125535.png" /></p>
+<p>复制完成：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221125710.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221125710.png, /asserts/bigdata/Pasted%20image%2020231221125710.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221125710.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221125710.png"
+        title="Pasted image 20231221125710.png" /></p>
+<p>新复制的虚拟机和老的虚拟机拥有相同的：</p>
+<ul>
+<li>hostname</li>
+<li>IP设置</li>
+<li>登录用户名、密码</li>
+<li>已安装的软件</li>
+</ul>
+<p>因此需要，修改hostname和ip设置。(之后配ssh可一起配完)</p>
+<h1 id="4-ssh分布式模式配置">4 ssh分布式模式配置</h1>
+<h2 id="41-修改主机名">4.1 <strong>修改主机名</strong></h2>
+<p>为了便于区分 master 节点 和 Slave 节点，可以修改各个节点的主机名（<strong>创始时已改</strong>）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vi /etc/hostname
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># master 虚拟机修改为 master</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># slave1 虚拟机修改为 slave1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># slave2 虚拟机修改为 slave2</span>
+</span></span></code></pre></div><p>（<strong>注意</strong>：只有重启 Linux 系统才能看到主机名的变化）</p>
+<h2 id="42-设置-hosts-文件">4.2 <strong>设置 hosts 文件</strong></h2>
+<p>配置 IP 与 HOSTNAME 的映射（IP 根据自己的静态ip来设置）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vi /etc/hosts
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3 台虚拟机配置形式如下 e.g.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 192.168.13.21   master</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 192.168.13.22   slave1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 192.168.13.23   slave2</span>
+</span></span></code></pre></div><p>master：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221135752.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221135752.png, /asserts/bigdata/Pasted%20image%2020231221135752.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221135752.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221135752.png"
+        title="Pasted image 20231221135752.png" /></p>
+<p>slave0：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221140319.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221140319.png, /asserts/bigdata/Pasted%20image%2020231221140319.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221140319.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221140319.png"
+        title="Pasted image 20231221140319.png" /></p>
+<p>slave1:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221135708.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221135708.png, /asserts/bigdata/Pasted%20image%2020231221135708.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221135708.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221135708.png"
+        title="Pasted image 20231221135708.png" /></p>
+<p>验证：master</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221140458.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221140458.png, /asserts/bigdata/Pasted%20image%2020231221140458.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221140458.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221140458.png"
+        title="Pasted image 20231221140458.png" /></p>
+<p>slave0</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221140724.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221140724.png, /asserts/bigdata/Pasted%20image%2020231221140724.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221140724.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221140724.png"
+        title="Pasted image 20231221140724.png" /></p>
+<p>slave1</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221140626.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221140626.png, /asserts/bigdata/Pasted%20image%2020231221140626.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221140626.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221140626.png"
+        title="Pasted image 20231221140626.png" /></p>
+<h2 id="43-配置ssh-无密码登录">4.3 配置ssh 无密码登录</h2>
+<p>如果之前已经生成过公钥，必须删除原来生成的公钥</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/.ssh			<span style="color:#75715e"># 如果没有该目录，先执行一次 ssh localhost，这个 要输入用户密码</span>
+</span></span><span style="display:flex;"><span>rm ./id_rsa*		<span style="color:#75715e"># 删除之前生成的公钥(如果已经存在)</span>
+</span></span></code></pre></div><p>生成公钥和密钥</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen -t rsa	<span style="color:#75715e"># 执行该命令后，遇到提示信息，一直按 Enter 键就可以了</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#cd ~/.ssh</span>
+</span></span><span style="display:flex;"><span>cat ./id_rsa.pub &gt;&gt; ./authorized_keys	<span style="color:#75715e"># 将公钥赋予给authorized_keys</span>
+</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">644</span> authorized_keys			<span style="color:#75715e"># 修改权限</span>
+</span></span></code></pre></div><p>此时已可以免密登录ssh:master：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221142206.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221142206.png, /asserts/bigdata/Pasted%20image%2020231221142206.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221142206.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221142206.png"
+        title="Pasted image 20231221142206.png" /></p>
+<p>slave0:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221142448.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221142448.png, /asserts/bigdata/Pasted%20image%2020231221142448.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221142448.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221142448.png"
+        title="Pasted image 20231221142448.png" /></p>
+<p>slave1:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221142703.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221142703.png, /asserts/bigdata/Pasted%20image%2020231221142703.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221142703.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221142703.png"
+        title="Pasted image 20231221142703.png" /></p>
+<p><strong>进一步配置：</strong></p>
+<p>做这里的时候没截图。</p>
+<p>验证tip：在终端中输入 ssh master、ssh slave1、ssh slave2，如果可直接登录，而不需要输入密码，则 ssh 无密码登录配置成功。（3个节点都是）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#在slave0中执行命令:</span>
+</span></span><span style="display:flex;"><span>scp id_rsa.pub hadoop@master:~/.ssh/id_rsa.pub.s0
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#在slave1中执行命令：</span>
+</span></span><span style="display:flex;"><span>scp id_rsa.pub hadoop@master:~/.ssh/id_rsa.pub.s1
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#进入master中执行命令,将公钥赋予给authorized_keys：</span>
+</span></span><span style="display:flex;"><span>cd ~/.ssh
+</span></span><span style="display:flex;"><span>cat id_rsa.pub.s0 &gt;&gt; authorized_keys
+</span></span><span style="display:flex;"><span>cat id_rsa.pub.s1 &gt;&gt; authorized_keys
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#将生成的包含三个节点的秘钥的authorized_keys 复制到slave0和slave1的.ssh目录下（先删除之前的）</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#s0/s1:</span>
+</span></span><span style="display:flex;"><span>rm authorized_keys
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#master:</span>
+</span></span><span style="display:flex;"><span>scp authorized_keys hadoop@slave0:~/.ssh/authorized_keys
+</span></span><span style="display:flex;"><span>scp authorized_keys hadoop@slave1:~/.ssh/authorized_keys
+</span></span></code></pre></div><hr>
+<h3 id="错误展示">!错误展示</h3>
+<p>下面的图是执行下方指令来完成公钥分发的结果（好像不是很管用：只有master能够免密登录3个节点，但先保留着不删了）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># ssh-copy-id -i ~/.ssh/id_rsa.pub master</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ssh-copy-id -i ~/.ssh/id_rsa.pub slave1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ssh-copy-id -i ~/.ssh/id_rsa.pub slave2</span>
+</span></span><span style="display:flex;"><span>scp ~/.ssh/authorized_keys hadoop@slave0:~/.ssh/	<span style="color:#75715e"># hadoop改为你的用户</span>
+</span></span><span style="display:flex;"><span>scp ~/.ssh/authorized_keys hadoop@slave1:~/.ssh/
+</span></span></code></pre></div><p>master 传输:<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221142904.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221142904.png, /asserts/bigdata/Pasted%20image%2020231221142904.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221142904.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221142904.png"
+        title="Pasted image 20231221142904.png" /></p>
+<p>slave0传输：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221143021.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221143021.png, /asserts/bigdata/Pasted%20image%2020231221143021.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221143021.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221143021.png"
+        title="Pasted image 20231221143021.png" /></p>
+<p>slave1传输：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/Pasted%20image%2020231221143200.png"
+        data-srcset="/asserts/bigdata/Pasted%20image%2020231221143200.png, /asserts/bigdata/Pasted%20image%2020231221143200.png 1.5x, /asserts/bigdata/Pasted%20image%2020231221143200.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/Pasted%20image%2020231221143200.png"
+        title="Pasted image 20231221143200.png" /></p>
+<p>验证slave0、1登录时还需要密码，怀疑是配置不对…（所以不要这么配）</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ubuntu启动hadoop初始配置" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ubuntu启动hadoop初始配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ubuntu启动hadoop初始配置"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ubuntu启动hadoop初始配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="next" rel="next" title="spark语言入门">spark语言入门<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">????</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

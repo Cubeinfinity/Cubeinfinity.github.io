@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>scala语言入门 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="scala语言入门" />
+<meta property="og:description" content="1 集成开发环境 系统学习scala语言需要IDE(更方便) IDEA 学新语言推荐直接进入应用 使用一下共享文件夹 如权限不足： sudo adduser 当前用户名 vboxsf 下载，解压缩" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-03T00:00:00+08:00" />
+<meta property="article:modified_time" content="2024-01-03T00:00:00+08:00" /><meta property="og:site_name" content="CubeInfinity" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="scala语言入门"/>
+<meta name="twitter:description" content="1 集成开发环境 系统学习scala语言需要IDE(更方便) IDEA 学新语言推荐直接进入应用 使用一下共享文件夹 如权限不足： sudo adduser 当前用户名 vboxsf 下载，解压缩"/>
+<meta name="application-name" content="Hi!CUBE">
+<meta name="apple-mobile-web-app-title" content="Hi!CUBE"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="prev" href="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="next" href="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "scala语言入门",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8\/"
+        },"genre": "posts","wordcount":  2721 ,
+        "url": "http:\/\/example.org\/posts\/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8\/","datePublished": "2024-01-03T00:00:00+08:00","dateModified": "2024-01-03T00:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/example.org\/images\/avatar.png",
+                    "width":  960 ,
+                    "height":  960 
+                }},"author": {
+                "@type": "Person",
+                "name": "Cai"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> 文章 </a><a class="menu-item" href="/tags/" title="Tags"> 标签 </a><a class="menu-item" href="/categories/" title="Categories"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">文章</a><a class="menu-item" href="/tags/" title="Tags">标签</a><a class="menu-item" href="/categories/" title="Categories">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">scala语言入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Cai</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>大数据:Hadoop集群完全分布式</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2721 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本数据类型">基本数据类型</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#组合数据结构">组合数据结构</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#函数">函数</a>
+      <ul>
+        <li><a href="#普通函数">普通函数</a></li>
+        <li><a href="#高阶函数">高阶函数</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="1-集成开发环境">1 集成开发环境</h1>
+<p>系统学习scala语言需要IDE(更方便)</p>
+<p>IDEA 学新语言推荐直接进入应用</p>
+<p>使用一下共享文件夹   如权限不足：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo adduser 当前用户名 vboxsf
+</span></span></code></pre></div><p>下载，解压缩</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tar -zxvf ideaIC-2023.2.4.tar.gz 
+</span></span></code></pre></div><p>为了方便使用，添加idea.sh路径到PATH</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>/home/bigdata3/Software/idea-IC-232.10203.10/bin:$PATH
+</span></span></code></pre></div><p>第一次启动idea：在终端输入：idea.sh</p>
+<p>点击New Project:</p>
+<p>输入projectname，语言选择scala；</p>
+<p>安装scala插件，安装完成后，重启IDE；</p>
+<p>project 的build system选择Intellij，选择JDK版本，检查jdk版本是否与我们当前使用的相符。Scala JDK，选择create，如没有版本则自行DIY。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231205222902085.png"
+        data-srcset="/asserts/bigdata/image-20231205222902085.png, /asserts/bigdata/image-20231205222902085.png 1.5x, /asserts/bigdata/image-20231205222902085.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231205222902085.png"
+        title="image-20231205222902085" /></p>
+<p>点击create，生成一个Hello World的示例程序。运行程序，观察结果。</p>
+<p>程序完成：</p>
+<pre tabindex="0"><code>Process finished with exit code 0
+</code></pre><p>单例对象，不可以继承；（？）</p>
+<h1 id="2-scala语言">2 scala语言</h1>
+<ul>
+<li>
+<p>变量声明必须指明var\val var:可变，val:不可变</p>
+</li>
+<li>
+<p>声明时可以不指定数据类型，系统会自动判断，但需要注意是否符合要求，因为自动判断一般只有三种：（1）字面无小数点：Int；（2）字母有小数点的数字：Double；（3）字符串。</p>
+</li>
+<li>
+<p>如果指定数据类型：变量名后用&quot;:&quot;，然后写数据类型；或者用数字后的类型标识。e.g. <code>val i =6f</code></p>
+</li>
+</ul>
+<h2 id="基本数据类型">基本数据类型</h2>
+<p>String类型是通过默认导入java.lang包实现的，其他的是scala的相应包</p>
+<h4 id="算数运算符">算数运算符</h4>
+<p>与其他语言类同，与java相同。</p>
+<h4 id="关系运算符">关系运算符</h4>
+<p>与其他语言类同，与java相同。</p>
+<h4 id="逻辑运算符">逻辑运算符</h4>
+<p>与其他语言类同，与java相同。</p>
+<h4 id="位运算符">位运算符</h4>
+<p>运算结果是数字，运算过程是对两个数字的对于二进制位进行逻辑操作，得到结果的对应二进制位的值。</p>
+<p>位运算符有3种：与&amp;、或|、异或^</p>
+<h4 id="赋值运算符">赋值运算符</h4>
+<p>左移位并赋值；右移位并赋值；按位与赋值；按位异或赋值；按位或赋值。</p>
+<h4 id="返回值">返回值</h4>
+<p>语句块的最后执行的那一个语句的值，就是返回值。</p>
+<p>语句块的划分：逻辑分隔，{}</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> a<span style="color:#f92672">={</span><span style="color:#66d9ef">val</span> c<span style="color:#66d9ef">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">;</span><span style="color:#66d9ef">val</span> d<span style="color:#66d9ef">=</span><span style="color:#ae81ff">3</span><span style="color:#f92672">;</span><span style="color:#66d9ef">val</span> c<span style="color:#f92672">+</span>d<span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> a<span style="color:#f92672">={</span><span style="color:#66d9ef">val</span> c<span style="color:#66d9ef">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">;</span><span style="color:#66d9ef">val</span> d<span style="color:#66d9ef">=</span><span style="color:#ae81ff">3</span><span style="color:#f92672">;</span><span style="color:#66d9ef">val</span> e<span style="color:#66d9ef">=</span>c<span style="color:#f92672">+</span>d<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>a<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">()</span> <span style="color:#75715e">//声明和赋值同时 是没有返回值的
+</span></span></span></code></pre></div><h4 id="条件语句">条件语句</h4>
+<p>两种写法：</p>
+<p>(1)写在同一行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">//java
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> b<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>a<span style="color:#f92672">&lt;</span>0<span style="color:#f92672">)</span> b<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> b<span style="color:#f92672">=</span>100<span style="color:#f92672">;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#75715e">//scala
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> b<span style="color:#f92672">={</span><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>a<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">100</span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#75715e">//scala
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> c<span style="color:#f92672">={</span><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>a<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>a<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span> <span style="color:#ae81ff">10</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>a<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">10</span> <span style="color:#ae81ff">20</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">1000</span><span style="color:#f92672">)}</span>
+</span></span></code></pre></div><p>(2)写在不同行</p>
+<p>必须要使用集成开发环境</p>
+<p>if在大多数情况下属于守卫用法：guard：在其他结构里嵌入if语句的应用方式。</p>
+<p>现在已经支持if-else的写法，较早的版本不支持</p>
+<h4 id="循环语句">循环语句</h4>
+<ul>
+<li>for的写法：</li>
+</ul>
+<pre tabindex="0"><code>for(变量&lt;-集合){循环体}
+</code></pre><p>注意：变量不可以用val或var。</p>
+<ul>
+<li>Range表达方式：<code>起点 to 终点</code> 或者 <code>起点 until 终点</code> 区别是是否包括终点：until 不包括。</li>
+</ul>
+<p>没有step，步进就是1。</p>
+<ul>
+<li>for中使用守卫(if)</li>
+</ul>
+<p>写法：</p>
+<pre tabindex="0"><code>for(变量&lt;-集合 if(布尔表达式)){循环体}
+</code></pre><ul>
+<li>可以尽量减少嵌套层次</li>
+</ul>
+<p>打印出1~10的偶数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> a<span style="color:#66d9ef">=</span><span style="color:#ae81ff">5</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>i<span style="color:#66d9ef">&lt;-</span><span style="color:#ae81ff">1</span> to <span style="color:#ae81ff">10</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      println<span style="color:#f92672">(</span>i<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>打印出1~10的奇数，不要9  //守卫如果有多个条件，scala建议是直接写出，不写逻辑与</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> a<span style="color:#66d9ef">=</span><span style="color:#ae81ff">5</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>i<span style="color:#66d9ef">&lt;-</span><span style="color:#ae81ff">1</span> to <span style="color:#ae81ff">10</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i<span style="color:#f92672">!=</span><span style="color:#ae81ff">9</span><span style="color:#f92672">))</span> <span style="color:#75715e">//scala常用的语法表示
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      println<span style="color:#f92672">(</span>i<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="for的嵌套">for的嵌套</h4>
+<p><strong>循环默认没有break和continue；</strong></p>
+<p>如果一定要使用，需要手工导包；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>最外层变量<span style="color:#66d9ef">&lt;-</span>集合1<span style="color:#960050;background-color:#1e0010">；</span>下一层变量<span style="color:#66d9ef">&lt;-</span>集合2<span style="color:#960050;background-color:#1e0010">；…</span><span style="color:#f92672">){</span>循环体<span style="color:#f92672">}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>for(最外层变量&lt;-集合1；下一层变量&lt;-集合2 守卫…){循环体}
+</code></pre><p>e.g.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>i<span style="color:#66d9ef">&lt;-</span><span style="color:#ae81ff">1</span> to <span style="color:#ae81ff">10</span> <span style="color:#f92672">;</span>j<span style="color:#66d9ef">&lt;-</span><span style="color:#ae81ff">11</span> to <span style="color:#ae81ff">13</span>  <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i<span style="color:#f92672">!=</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>j<span style="color:#f92672">!=</span><span style="color:#ae81ff">13</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>循环体<span style="color:#f92672">}</span>
+</span></span></code></pre></div><h5 id="局限">局限</h5>
+<p>e.g. 打印1~100内的素数，仍需要进行经典嵌套</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> a<span style="color:#66d9ef">=</span><span style="color:#ae81ff">5</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> flag <span style="color:#66d9ef">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>i<span style="color:#66d9ef">&lt;-</span><span style="color:#ae81ff">1</span> to <span style="color:#ae81ff">100</span> <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      flag<span style="color:#66d9ef">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>j<span style="color:#66d9ef">&lt;-</span><span style="color:#ae81ff">2</span> until i<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i<span style="color:#f92672">%</span>j<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>          flag<span style="color:#66d9ef">=</span><span style="color:#ae81ff">0</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>flag<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        print<span style="color:#f92672">(</span>i<span style="color:#f92672">+</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="while"><strong>while</strong></h4>
+<p>与其他语言相同</p>
+<h4 id="do-while">do-while</h4>
+<p>与其他语言相同</p>
+<h2 id="组合数据结构">组合数据结构</h2>
+<h4 id="array">Array</h4>
+<p>*较多使用</p>
+<p>默认是定长数组。如果一定要使用非定长数组，需要自己导包。</p>
+<p>写法与其他语言的不同之处：用圆括号。</p>
+<p>访问使用索引。</p>
+<h4 id="map">Map</h4>
+<p>类似Python里面的字典，但：默认长度不可变（但python可变）。写法不同</p>
+<p>写法：用圆括号，key与value之间用&quot;-&gt;&quot;</p>
+<p>e.g. <code>val a=Map(&quot;a&quot;-&gt;1,&quot;b&quot;-&gt;2)</code></p>
+<p>e.g. 为得到2</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>a<span style="color:#f92672">(</span>b<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h4 id="tuple">Tuple</h4>
+<p>*较多使用</p>
+<p>与其他语言相同。但访问方式比较特殊，用<code>._序号</code>形式访问。</p>
+<p>特别注意：序号从1开始（不是索引[]，索引默认都是从0开始）。e.g.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> a<span style="color:#f92672">=(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>访问a中的第5个</p>
+<pre tabindex="0"><code>a._5
+</code></pre><p>数组中的数组</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> b<span style="color:#f92672">=((</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">),(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">),</span><span style="color:#ae81ff">7</span><span style="color:#f92672">,</span><span style="color:#ae81ff">8</span><span style="color:#f92672">,</span><span style="color:#ae81ff">9</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>访问2中的第2.2个</p>
+<pre tabindex="0"><code>b._2._2
+</code></pre><p>索引访问</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> c<span style="color:#66d9ef">=</span><span style="color:#a6e22e">Array</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>c<span style="color:#f92672">(</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">--</span>res<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Any</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><h4 id="list">List</h4>
+<p>与Array类似，但List要求元素是相同的数据类型。</p>
+<h4 id="set">Set</h4>
+<p>集合：无顺序、元素不重复。</p>
+<h2 id="函数">函数</h2>
+<h3 id="普通函数">普通函数</h3>
+<p>主要定义方法：</p>
+<h4 id="标准定义">标准定义</h4>
+<pre tabindex="0"><code>def 函数名(参数列表)：返回值类型={函数体}
+</code></pre><p>其中：参数列表写法：参数1:类型1,参数2:类型2,…;类型必须写，返回值类型可以不写。</p>
+<p>一般不用return，因为最后执行的那一句的值就是返回值。</p>
+<p>e.g.1 scala可以在main里定义一个新的函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> add1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">+</span>a2<span style="color:#f92672">}</span> <span style="color:#75715e">//后一个Int可以不用写：如果系统可以正确自动判断；想自定义就需写明逻辑
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println<span style="color:#f92672">(</span>add1<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="匿名函数定义">匿名函数定义</h4>
+<p>作为函数的参数</p>
+<p>以加法为例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> add2<span style="color:#f92672">=(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)=&gt;{</span>a1<span style="color:#f92672">+</span>a2<span style="color:#f92672">}</span>
+</span></span></code></pre></div><pre tabindex="0"><code>(参数列表)=&gt;{函数体}
+</code></pre><h3 id="高阶函数">高阶函数</h3>
+<p>参数或者返回值是函数的函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> mul1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">*</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> highFunc<span style="color:#f92672">(</span>f1<span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">=&gt;</span><span style="color:#a6e22e">Int</span><span style="color:#f92672">,</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>f1<span style="color:#f92672">(</span>a1<span style="color:#f92672">,</span>a2<span style="color:#f92672">)}</span>
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;*:&#34;</span><span style="color:#f92672">);</span>println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span>mul1<span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">))</span>
+</span></span></code></pre></div><h4 id="参数是函数">参数是函数</h4>
+<p>优点：函数功能更灵活、维护方便，编程任务分配简单。</p>
+<p>基本写法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> 函数名<span style="color:#f92672">(</span>形参列表<span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">返回值类型</span><span style="color:#f92672">={</span>函数体<span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>形参列表中有函数形参，函数形参的写法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>函数名<span style="color:#66d9ef">:</span><span style="color:#66d9ef">函数类型</span><span style="color:#f92672">;</span>函数名<span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">形参类型列表</span><span style="color:#f92672">)=&gt;</span>返回值类型
+</span></span></code></pre></div><p>调用：函数形参，直接写函数名或者写匿名函数。</p>
+<h5 id="形参有默认值">形参有默认值</h5>
+<p>没有默认值的形参要写在形参表的前面(必须传参)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> mul1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">*</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> add1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">+</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> highFunc<span style="color:#f92672">(</span>f1<span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">=&gt;</span><span style="color:#a6e22e">Int</span><span style="color:#f92672">,</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>f1<span style="color:#f92672">(</span>a1<span style="color:#f92672">,</span>a2<span style="color:#f92672">)}</span>
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;*:&#34;</span><span style="color:#f92672">);</span>println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span>mul1<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;+:&#34;</span><span style="color:#f92672">);</span>println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span>add1<span style="color:#f92672">))</span>
+</span></span></code></pre></div><p>*函数形参默认</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> mul1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">*</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> add1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">+</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> highFunc<span style="color:#f92672">(</span>f1<span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">=&gt;</span><span style="color:#a6e22e">Int</span><span style="color:#66d9ef">=</span>add1<span style="color:#f92672">,</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>f1<span style="color:#f92672">(</span>a1<span style="color:#f92672">,</span>a2<span style="color:#f92672">)}</span>
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;*:&#34;</span><span style="color:#f92672">);</span>println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span>mul1<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;+:&#34;</span><span style="color:#f92672">);</span>println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">())</span>
+</span></span></code></pre></div><h5 id="调用时不按顺序传参">调用时不按顺序传参</h5>
+<p>带形参名传参，明确指明要传哪个参数…</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> mul1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">*</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> add1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">+</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> minus1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">-</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> div1<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>a1<span style="color:#f92672">/</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> highFunc<span style="color:#f92672">(</span>f1<span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">=&gt;</span><span style="color:#a6e22e">Int</span><span style="color:#66d9ef">=</span>add1<span style="color:#f92672">,</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>f1<span style="color:#f92672">(</span>a1<span style="color:#f92672">,</span>a2<span style="color:#f92672">)}</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;+:  &#34;</span><span style="color:#f92672">);</span>print<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span>a2<span style="color:#66d9ef">=</span><span style="color:#ae81ff">9</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h5 id="函数调用时传匿名函数">函数调用时传匿名函数</h5>
+<p>当作为参数的函数只用一次，并且写法比较简单的情况下，可以使用匿名函数；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> highFunc<span style="color:#f92672">(</span>f1<span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">=&gt;</span><span style="color:#a6e22e">Int</span><span style="color:#f92672">,</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>f1<span style="color:#f92672">(</span>a1<span style="color:#f92672">,</span>a2<span style="color:#f92672">)}</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;*:  &#34;</span><span style="color:#f92672">);</span>print<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">((</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)=&gt;{</span>a1<span style="color:#f92672">*</span>a2<span style="color:#f92672">}))</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;+:  &#34;</span><span style="color:#f92672">);</span>print<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">((</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)=&gt;{</span>a1<span style="color:#f92672">+</span>a2<span style="color:#f92672">}))</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-:  &#34;</span><span style="color:#f92672">);</span>print<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">((</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)=&gt;{</span>a1<span style="color:#f92672">-</span>a2<span style="color:#f92672">}))</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/:  &#34;</span><span style="color:#f92672">);</span>print<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">((</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)=&gt;{</span>a1<span style="color:#f92672">/</span>a2<span style="color:#f92672">}))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>练习：基础函数是def highFunc(f2:(Int,Int)=&gt;Int,a1:Int=1,a2:Int=2)={f2(a1,a2)}，计算a*b/(a+b),a=5,b=8</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> highFunc<span style="color:#f92672">(</span>f1<span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">=&gt;</span><span style="color:#a6e22e">Int</span><span style="color:#f92672">,</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>f1<span style="color:#f92672">(</span>a1<span style="color:#f92672">,</span>a2<span style="color:#f92672">)}</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;*:  &#34;</span><span style="color:#f92672">);</span>print<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">((</span>x<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>y<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)=&gt;{</span>x<span style="color:#f92672">*</span>y<span style="color:#f92672">/(</span>x<span style="color:#f92672">+</span>y<span style="color:#f92672">)}),</span><span style="color:#ae81ff">5</span><span style="color:#f92672">,</span><span style="color:#ae81ff">8</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h5 id="函数调用时传使用_的匿名函数">函数调用时传使用_的匿名函数</h5>
+<p>匿名函数中<code>_</code>的使用前提：使用<code>_</code>不会影响参数判断，<code>_</code>所代表的参数在函数体中只使用一次。</p>
+<p>例如函数：<code>(a1:Int,a2:Int)=&gt;{a1*a2}</code>可以写成<code>_*_</code> (下划线与声明时的形参按位置顺序对应)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> highFunc<span style="color:#f92672">(</span>f2<span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">=&gt;</span><span style="color:#a6e22e">Int</span><span style="color:#f92672">,</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">={</span>f2<span style="color:#f92672">(</span>a1<span style="color:#f92672">,</span>a2<span style="color:#f92672">)}</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;*:  &#34;</span><span style="color:#f92672">);</span> println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">*</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;+:  &#34;</span><span style="color:#f92672">);</span> println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-:  &#34;</span><span style="color:#f92672">);</span> println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">-</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/:  &#34;</span><span style="color:#f92672">);</span> println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">/</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h4 id="返回值是函数">返回值是函数</h4>
+<p>读文档时注意！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> highFunc<span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span><span style="color:#66d9ef">:</span><span style="color:#f92672">(</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span><span style="color:#66d9ef">=&gt;</span><span style="color:#a6e22e">Int</span><span style="color:#f92672">={</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>a1<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)=&gt;{</span>a1<span style="color:#f92672">*</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">else</span><span style="color:#f92672">(</span>a1<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">,</span>a2<span style="color:#66d9ef">:</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;{</span>a1<span style="color:#f92672">+</span>a2<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//    5*8 How to call highFunc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    print<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;*:  &#34;</span><span style="color:#f92672">);</span>println<span style="color:#f92672">(</span>highFunc<span style="color:#f92672">(-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)(</span><span style="color:#ae81ff">5</span><span style="color:#f92672">,</span><span style="color:#ae81ff">8</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h1 id="3-scala的标识符">3 scala的标识符</h1>
+<ul>
+<li>重点是<code>_</code></li>
+<li>scala的标识符包括字母、数字、下划线（下划线在最前面或最后面一般都有特殊含义，自己写时需要放置最中间）。</li>
+<li>scala建议使用驼峰命名法：第一个单词全部小写，其后的单词首字母大写；</li>
+<li>常量在java中一般全是全大写，scala是第一个字母大写。</li>
+<li>下划线不建议用在首、尾位置。_在scala中的含义比较多，最多的用法时通配符（用在匿名函数）和范围标识。
+<ul>
+<li>匿名函数使用_，是在调用时使用，可以简化函数写法。</li>
+</ul>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="scala语言入门" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="scala语言入门"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="scala语言入门"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="scala语言入门"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="prev" rel="prev" title="spark语言入门"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>spark语言入门</a>
+            <a href="/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" class="next" rel="next" title="hadoop完全分布式集集群配置">hadoop完全分布式集集群配置<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">????</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
