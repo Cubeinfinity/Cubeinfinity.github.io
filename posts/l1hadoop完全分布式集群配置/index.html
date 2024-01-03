@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>hadoop完全分布式集集群配置 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="hadoop完全分布式集集群配置" />
+        <title>ch01 hadoop完全分布式集集群配置 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="ch01 hadoop完全分布式集集群配置" />
 <meta property="og:description" content="做完ssh免密可以开始准备配置hadoop完全分布式集群了 *打开hadoop的解压缩文档。 ../share/doc/hadoop/index.html overview（看不懂） 与之前版本的区别（都是" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
@@ -14,18 +14,18 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="hadoop完全分布式集集群配置"/>
+<meta name="twitter:title" content="ch01 hadoop完全分布式集集群配置"/>
 <meta name="twitter:description" content="做完ssh免密可以开始准备配置hadoop完全分布式集群了 *打开hadoop的解压缩文档。 ../share/doc/hadoop/index.html overview（看不懂） 与之前版本的区别（都是"/>
 <meta name="application-name" content="Hi!CUBE">
 <meta name="apple-mobile-web-app-title" content="Hi!CUBE"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" /><link rel="prev" href="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="next" href="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "hadoop完全分布式集集群配置",
+        "headline": "ch01 hadoop完全分布式集集群配置",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -33,12 +33,7 @@
         },"genre": "posts","wordcount":  3621 ,
         "url": "http:\/\/example.org\/posts\/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE\/","datePublished": "2024-01-03T00:00:00+08:00","dateModified": "2024-01-03T00:00:00+08:00","publisher": {
             "@type": "Organization",
-            "name": "","logo": {
-                    "@type": "ImageObject",
-                    "url": "http:\/\/example.org\/images\/avatar.png",
-                    "width":  960 ,
-                    "height":  960 
-                }},"author": {
+            "name": "","logo": "http:\/\/example.org\/image\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "Cai"
             },"description": ""
@@ -107,52 +102,59 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">hadoop完全分布式集集群配置</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ch01 hadoop完全分布式集集群配置</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Cai</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>大数据:Hadoop集群完全分布式</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3621 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="true">
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#11-hadoopenvsh">1.1 hadoop.env.sh</a></li>
-    <li><a href="#12-core-sitexml">1.2 core-site.xml</a></li>
-    <li><a href="#13-hdfs-sitexml">1.3 hdfs-site.xml</a></li>
-    <li><a href="#14-yarn-sitexml">1.4 yarn-site.xml</a></li>
-    <li><a href="#15-mapred-sitexml">1.5 mapred-site.xml</a></li>
-    <li><a href="#16-workers">1.6 workers</a></li>
-    <li><a href="#17-分发脚本">1.7 分发脚本</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#21-namenode格式化">2.1 namenode格式化</a></li>
-    <li><a href="#22-启动集群">2.2 启动集群</a>
+    <li><a href="#打开hadoop的解压缩文档">*打开hadoop的解压缩文档。</a></li>
+    <li><a href="#1-完全分布式集群配置">1 完全分布式集群配置</a>
       <ul>
-        <li><a href="#220-节点启动异常">*2.2.0 节点启动异常：</a></li>
+        <li><a href="#11-hadoopenvsh">1.1 hadoop.env.sh</a></li>
+        <li><a href="#12-core-sitexml">1.2 core-site.xml</a></li>
+        <li><a href="#13-hdfs-sitexml">1.3 hdfs-site.xml</a></li>
+        <li><a href="#14-yarn-sitexml">1.4 yarn-site.xml</a></li>
+        <li><a href="#15-mapred-sitexml">1.5 mapred-site.xml</a></li>
+        <li><a href="#16-workers">1.6 workers</a></li>
+        <li><a href="#17-分发脚本">1.7 分发脚本</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#31-远程集群使用">3.1 远程集群使用</a>
+    <li><a href="#2-集群启动">2 集群启动</a>
       <ul>
-        <li><a href="#-mkdir">-mkdir</a></li>
-        <li><a href="#-ls">-ls</a></li>
-        <li><a href="#-put---copyfromlocal">-put  -copyFromLocal</a></li>
-        <li><a href="#-get--copytolocal">-get -copyToLocal</a></li>
-        <li><a href="#-cat">-cat</a></li>
-        <li><a href="#-appendtofile">-appendToFile</a></li>
-        <li><a href="#-cp">-cp</a></li>
-        <li><a href="#-movefromlocal--movetolocal--mv">-moveFromLocal, -moveToLocal, -mv</a></li>
-        <li><a href="#-rm">-rm</a></li>
-        <li><a href="#-rmdir">-rmdir</a></li>
-        <li><a href="#-touch">-touch</a></li>
+        <li><a href="#21-namenode格式化">2.1 namenode格式化</a></li>
+        <li><a href="#22-启动集群">2.2 启动集群</a>
+          <ul>
+            <li><a href="#220-节点启动异常">*2.2.0 节点启动异常：</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-    <li><a href="#32-hdfs文件对应本地文件">3.2 hdfs文件对应本地文件</a></li>
+    <li><a href="#3-hdfs命令">3 hdfs命令</a>
+      <ul>
+        <li><a href="#31-远程集群使用">3.1 远程集群使用</a>
+          <ul>
+            <li><a href="#-mkdir">-mkdir</a></li>
+            <li><a href="#-ls">-ls</a></li>
+            <li><a href="#-put---copyfromlocal">-put  -copyFromLocal</a></li>
+            <li><a href="#-get--copytolocal">-get -copyToLocal</a></li>
+            <li><a href="#-cat">-cat</a></li>
+            <li><a href="#-appendtofile">-appendToFile</a></li>
+            <li><a href="#-cp">-cp</a></li>
+            <li><a href="#-movefromlocal--movetolocal--mv">-moveFromLocal, -moveToLocal, -mv</a></li>
+            <li><a href="#-rm">-rm</a></li>
+            <li><a href="#-rmdir">-rmdir</a></li>
+            <li><a href="#-touch">-touch</a></li>
+          </ul>
+        </li>
+        <li><a href="#32-hdfs文件对应本地文件">3.2 hdfs文件对应本地文件</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>做完ssh免密可以开始准备配置hadoop完全分布式集群了</p>
@@ -648,7 +650,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="hadoop完全分布式集集群配置" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="hadoop完全分布式集集群配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="hadoop完全分布式集集群配置"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="hadoop完全分布式集集群配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -660,7 +662,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="prev" rel="prev" title="scala语言入门"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>scala语言入门</a></div>
+    <div class="post-nav"><a href="/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="prev" rel="prev" title="ch02 scala语言入门"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ch02 scala语言入门</a>
+            <a href="/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" class="next" rel="next" title="ch00 ubuntu启动hadoop初始配置">ch00 ubuntu启动hadoop初始配置<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>spark语言入门 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="spark语言入门" />
+        <title>ch03 spark语言入门 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="ch03 spark语言入门" />
 <meta property="og:description" content="1 master 1 绪论 RDD 弹性分布式数据集，是spark的基本数据集。 RDD的计算主要分为两种：转换计算transformation、执行计算action" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
@@ -14,18 +14,18 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="spark语言入门"/>
+<meta name="twitter:title" content="ch03 spark语言入门"/>
 <meta name="twitter:description" content="1 master 1 绪论 RDD 弹性分布式数据集，是spark的基本数据集。 RDD的计算主要分为两种：转换计算transformation、执行计算action"/>
 <meta name="application-name" content="Hi!CUBE">
 <meta name="apple-mobile-web-app-title" content="Hi!CUBE"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="prev" href="http://example.org/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" /><link rel="next" href="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="next" href="http://example.org/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "spark语言入门",
+        "headline": "ch03 spark语言入门",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -33,12 +33,7 @@
         },"genre": "posts","wordcount":  3197 ,
         "url": "http:\/\/example.org\/posts\/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8\/","datePublished": "2024-01-03T00:00:00+08:00","dateModified": "2024-01-03T00:00:00+08:00","publisher": {
             "@type": "Organization",
-            "name": "","logo": {
-                    "@type": "ImageObject",
-                    "url": "http:\/\/example.org\/images\/avatar.png",
-                    "width":  960 ,
-                    "height":  960 
-                }},"author": {
+            "name": "","logo": "http:\/\/example.org\/image\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "Cai"
             },"description": ""
@@ -107,71 +102,113 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">spark语言入门</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ch03 spark语言入门</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Cai</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>大数据:Hadoop集群完全分布式</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3197 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="true">
+        </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1-master">1 master</a></li>
+    <li><a href="#1-绪论">1 绪论</a>
       <ul>
-        <li></li>
+        <li>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#rdd">RDD</a></li>
+                <li><a href="#dag">DAG</a></li>
+                <li><a href="#excutor">Excutor</a></li>
+                <li><a href="#task">Task</a></li>
+                <li><a href="#job">Job</a></li>
+                <li><a href="#stage">stage</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#21-生成rdd">2.1 生成RDD</a>
+    <li><a href="#2-rdd编程">2 RDD编程</a>
       <ul>
-        <li><a href="#210-读取远程文件">2.1.0 *读取远程文件</a></li>
+        <li><a href="#21-生成rdd">2.1 生成RDD</a>
+          <ul>
+            <li><a href="#210-读取远程文件">2.1.0 *读取远程文件</a>
+              <ul>
+                <li><a href="#map">*Map()</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#22-程序的输出">2.2 程序的输出</a></li>
+        <li><a href="#23-spark集成开发环境建立">2.3 spark集成开发环境建立</a></li>
+        <li><a href="#24-转换操作">2.4 转换操作</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#filter">filter</a></li>
+                <li><a href="#map-1">map</a></li>
+                <li><a href="#flatmap">flatMap</a></li>
+                <li><a href="#reducebykey">reduceByKey</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#25-行动操作">2.5 行动操作</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#count">count</a></li>
+                <li><a href="#collect">collect</a></li>
+                <li><a href="#take">take</a></li>
+                <li><a href="#first">first</a></li>
+                <li><a href="#foreachfunc">foreach(func)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#26-wordcount链式写法">2.6 wordCount链式写法</a></li>
       </ul>
     </li>
-    <li><a href="#22-程序的输出">2.2 程序的输出</a></li>
-    <li><a href="#23-spark集成开发环境建立">2.3 spark集成开发环境建立</a></li>
-    <li><a href="#24-转换操作">2.4 转换操作</a>
+    <li><a href="#3-集成开发环境">3 集成开发环境</a>
       <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#25-行动操作">2.5 行动操作</a>
-      <ul>
-        <li></li>
-      </ul>
-    </li>
-    <li><a href="#26-wordcount链式写法">2.6 wordCount链式写法</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#30-程序运行时不使用参数">3.0 *程序运行时不使用参数</a>
-      <ul>
-        <li><a href="#如何让本程序变成两个job">*如何让本程序变成两个job？</a></li>
-      </ul>
-    </li>
-    <li><a href="#31-数据平衡">3.1 数据平衡</a>
-      <ul>
-        <li><a href="#分区">分区</a></li>
-        <li><a href="#创建rdd时的分区">创建RDD时的分区</a></li>
-      </ul>
-    </li>
-    <li><a href="#32-repartition的数据平衡">3.2 repartition的数据平衡</a>
-      <ul>
-        <li><a href="#repartition的放置位置">repartition的放置位置：</a></li>
-        <li><a href="#考虑数据平衡和输出的wordcount程序">考虑数据平衡和输出的wordCount程序</a></li>
-      </ul>
-    </li>
-    <li><a href="#33-程序运行参数的使用">3.3 程序运行参数的使用：</a>
-      <ul>
-        <li><a href="#运行参数的输入">运行参数的输入</a></li>
-      </ul>
-    </li>
-    <li><a href="#34-程序打包">3.4 程序打包</a>
-      <ul>
-        <li></li>
+        <li><a href="#30-程序运行时不使用参数">3.0 *程序运行时不使用参数</a>
+          <ul>
+            <li><a href="#如何让本程序变成两个job">*如何让本程序变成两个job？</a></li>
+          </ul>
+        </li>
+        <li><a href="#31-数据平衡">3.1 数据平衡</a>
+          <ul>
+            <li><a href="#分区">分区</a></li>
+            <li><a href="#创建rdd时的分区">创建RDD时的分区</a></li>
+          </ul>
+        </li>
+        <li><a href="#32-repartition的数据平衡">3.2 repartition的数据平衡</a>
+          <ul>
+            <li><a href="#repartition的放置位置">repartition的放置位置：</a></li>
+            <li><a href="#考虑数据平衡和输出的wordcount程序">考虑数据平衡和输出的wordCount程序</a></li>
+          </ul>
+        </li>
+        <li><a href="#33-程序运行参数的使用">3.3 程序运行参数的使用：</a>
+          <ul>
+            <li><a href="#运行参数的输入">运行参数的输入</a></li>
+          </ul>
+        </li>
+        <li><a href="#34-程序打包">3.4 程序打包</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#首先要修改程序">首先要修改程序</a></li>
+                <li><a href="#打包前设置">打包前设置</a></li>
+                <li><a href="#打包">打包</a></li>
+                <li><a href="#运行jar包">运行jar包</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -958,7 +995,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="spark语言入门" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="spark语言入门"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="spark语言入门"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="spark语言入门"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="ch03 spark语言入门" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="ch03 spark语言入门"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="ch03 spark语言入门"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="ch03 spark语言入门"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -970,8 +1007,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" class="prev" rel="prev" title="ubuntu启动hadoop初始配置"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ubuntu启动hadoop初始配置</a>
-            <a href="/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="next" rel="next" title="scala语言入门">scala语言入门<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav">
+            <a href="/posts/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="next" rel="next" title="ch02 scala语言入门">ch02 scala语言入门<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
