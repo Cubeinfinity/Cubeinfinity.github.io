@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>ch03 spark语言入门 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="ch03 spark语言入门" />
+<meta property="og:description" content="如题，简要入门" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-03T00:00:00+08:00" />
+<meta property="article:modified_time" content="2024-01-03T00:00:00+08:00" /><meta property="og:site_name" content="CubeInfinity" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="ch03 spark语言入门"/>
+<meta name="twitter:description" content="如题，简要入门"/>
+<meta name="application-name" content="Hi!CUBE">
+<meta name="apple-mobile-web-app-title" content="Hi!CUBE"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="next" href="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ch03 spark语言入门",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8\/"
+        },"genre": "posts","wordcount":  3204 ,
+        "url": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8\/","datePublished": "2024-01-03T00:00:00+08:00","dateModified": "2024-01-03T00:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "","logo": "http:\/\/example.org\/image\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Cai"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> 文章 </a><a class="menu-item" href="/tags/" title="Tags"> 标签 </a><a class="menu-item" href="/categories/" title="Categories"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">文章</a><a class="menu-item" href="/tags/" title="Tags">标签</a><a class="menu-item" href="/categories/" title="Categories">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ch03 spark语言入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Cai</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE-hadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>大数据-Hadoop集群完全分布式</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3204 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-master">1 master</a></li>
+    <li><a href="#1-绪论">1 绪论</a>
+      <ul>
+        <li>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#rdd">RDD</a></li>
+                <li><a href="#dag">DAG</a></li>
+                <li><a href="#excutor">Excutor</a></li>
+                <li><a href="#task">Task</a></li>
+                <li><a href="#job">Job</a></li>
+                <li><a href="#stage">stage</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-rdd编程">2 RDD编程</a>
+      <ul>
+        <li><a href="#21-生成rdd">2.1 生成RDD</a>
+          <ul>
+            <li><a href="#210-读取远程文件">2.1.0 *读取远程文件</a>
+              <ul>
+                <li><a href="#map">*Map()</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#22-程序的输出">2.2 程序的输出</a></li>
+        <li><a href="#23-spark集成开发环境建立">2.3 spark集成开发环境建立</a></li>
+        <li><a href="#24-转换操作">2.4 转换操作</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#filter">filter</a></li>
+                <li><a href="#map-1">map</a></li>
+                <li><a href="#flatmap">flatMap</a></li>
+                <li><a href="#reducebykey">reduceByKey</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#25-行动操作">2.5 行动操作</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#count">count</a></li>
+                <li><a href="#collect">collect</a></li>
+                <li><a href="#take">take</a></li>
+                <li><a href="#first">first</a></li>
+                <li><a href="#foreachfunc">foreach(func)</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#26-wordcount链式写法">2.6 wordCount链式写法</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-集成开发环境">3 集成开发环境</a>
+      <ul>
+        <li><a href="#30-程序运行时不使用参数">3.0 *程序运行时不使用参数</a>
+          <ul>
+            <li><a href="#如何让本程序变成两个job">*如何让本程序变成两个job？</a></li>
+          </ul>
+        </li>
+        <li><a href="#31-数据平衡">3.1 数据平衡</a>
+          <ul>
+            <li><a href="#分区">分区</a></li>
+            <li><a href="#创建rdd时的分区">创建RDD时的分区</a></li>
+          </ul>
+        </li>
+        <li><a href="#32-repartition的数据平衡">3.2 repartition的数据平衡</a>
+          <ul>
+            <li><a href="#repartition的放置位置">repartition的放置位置：</a></li>
+            <li><a href="#考虑数据平衡和输出的wordcount程序">考虑数据平衡和输出的wordCount程序</a></li>
+          </ul>
+        </li>
+        <li><a href="#33-程序运行参数的使用">3.3 程序运行参数的使用：</a>
+          <ul>
+            <li><a href="#运行参数的输入">运行参数的输入</a></li>
+          </ul>
+        </li>
+        <li><a href="#34-程序打包">3.4 程序打包</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#首先要修改程序">首先要修改程序</a></li>
+                <li><a href="#打包前设置">打包前设置</a></li>
+                <li><a href="#打包">打包</a></li>
+                <li><a href="#运行jar包">运行jar包</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>如题，简要入门</p>
+<h1 id="1-master">1 master</h1>
+<h1 id="1-绪论">1 绪论</h1>
+<h4 id="rdd">RDD</h4>
+<ul>
+<li>
+<p>弹性分布式数据集，是spark的基本数据集。</p>
+</li>
+<li>
+<p>RDD的计算主要分为两种：转换计算transformation、执行计算action。</p>
+</li>
+<li>
+<p>转换计算的计算的结果还是RDD.</p>
+<pre tabindex="0"><code>计算流程：输入-&gt;转换-&gt;转换-&gt;…-&gt;执行
+</code></pre></li>
+<li>
+<p>执行操作结果一般不是RDD，所以执行操作一般是spark的最后一步</p>
+<ul>
+<li>spark的转换操作是惰性的，只有遇到执行操作，才按顺序执行转换操作。这样可以提高资源利用率。</li>
+</ul>
+</li>
+</ul>
+<h4 id="dag">DAG</h4>
+<ul>
+<li>有向无环图，是spark计算过程的描述。</li>
+</ul>
+<h4 id="excutor">Excutor</h4>
+<ul>
+<li>运行在worker节点上的进程。负责task的运行。</li>
+</ul>
+<h4 id="task">Task</h4>
+<ul>
+<li>具体的任务计算</li>
+</ul>
+<h4 id="job">Job</h4>
+<h4 id="stage">stage</h4>
+<p>一组相互间没有shuffle依赖关系的task组成的集合，也称为TaskSet</p>
+<ul>
+<li>窄依赖</li>
+</ul>
+<p>数据只在本数据分区内流动，不流出本分区</p>
+<ul>
+<li>宽依赖</li>
+</ul>
+<p>依赖于多个分区的数据（因此需要等待依赖的分区都计算完成后才能完成计算）</p>
+<p>shuffle灾难</p>
+<h1 id="2-rdd编程">2 RDD编程</h1>
+<p>*我们使用的是old versions……</p>
+<ul>
+<li>spark-shell的WARN 可以修改</li>
+<li>常用转换操作、常用动作操作 自行在spark官网查询</li>
+</ul>
+<h2 id="21-生成rdd">2.1 生成RDD</h2>
+<p>*把<code>执行</code>换成<code>动作</code>操作</p>
+<ul>
+<li>
+<p>用文件生成RDD</p>
+<p>文本文件，用sc.testFile</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> <span style="color:#a6e22e">RDD1</span><span style="color:#66d9ef">=</span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;文件的全路径&#34;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>*验证一个不存在的文本数据时：命令行显示没有报错，说明目前并没有<strong>执行</strong>，只是转换</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a6e22e">RDD1</span><span style="color:#f92672">.</span>collect<span style="color:#f92672">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a6e22e">RDD1</span><span style="color:#f92672">.</span>collect
+</span></span></code></pre></div><p>都可以…scala:当你的实参表示是空的时候，可以不写<code>()</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206213923070.png"
+        data-srcset="/asserts/bigdata/image-20231206213923070.png, /asserts/bigdata/image-20231206213923070.png 1.5x, /asserts/bigdata/image-20231206213923070.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206213923070.png"
+        title="image-20231206213923070" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206214000083.png"
+        data-srcset="/asserts/bigdata/image-20231206214000083.png, /asserts/bigdata/image-20231206214000083.png 1.5x, /asserts/bigdata/image-20231206214000083.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206214000083.png"
+        title="image-20231206214000083" /></p>
+</li>
+<li>
+<p>程序中的数据生成RDD</p>
+</li>
+</ul>
+<p>​	一般都是数组，使用sc.parallelize(数组)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> <span style="color:#a6e22e">Array1</span><span style="color:#66d9ef">=</span><span style="color:#a6e22e">Array</span><span style="color:#f92672">(</span><span style="color:#ae81ff">7</span><span style="color:#f92672">,</span><span style="color:#ae81ff">8</span><span style="color:#f92672">,</span><span style="color:#ae81ff">11</span><span style="color:#f92672">,</span><span style="color:#ae81ff">12</span><span style="color:#f92672">,</span><span style="color:#ae81ff">14</span><span style="color:#f92672">,</span><span style="color:#ae81ff">15</span><span style="color:#f92672">,</span><span style="color:#ae81ff">16</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> <span style="color:#a6e22e">RDD2</span><span style="color:#66d9ef">=</span>sc<span style="color:#f92672">.</span>parallelize<span style="color:#f92672">(</span><span style="color:#a6e22e">Array1</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206214319134.png"
+        data-srcset="/asserts/bigdata/image-20231206214319134.png, /asserts/bigdata/image-20231206214319134.png 1.5x, /asserts/bigdata/image-20231206214319134.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206214319134.png"
+        title="image-20231206214319134" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206214236274.png"
+        data-srcset="/asserts/bigdata/image-20231206214236274.png, /asserts/bigdata/image-20231206214236274.png 1.5x, /asserts/bigdata/image-20231206214236274.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206214236274.png"
+        title="image-20231206214236274" /></p>
+<p>​</p>
+<h3 id="210-读取远程文件">2.1.0 *读取远程文件</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> hdfsRdd<span style="color:#66d9ef">=</span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hdfs://172.21.2.6:9000/lsq.txt&#34;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>本地读集群√</p>
+<h4 id="map">*Map()</h4>
+<p>链式写法（可以一直写下去…）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>sc<span style="color:#f92672">.</span>parallelize<span style="color:#f92672">(</span><span style="color:#a6e22e">Array1</span><span style="color:#f92672">).</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span><span style="color:#ae81ff">10</span><span style="color:#f92672">+</span>x<span style="color:#f92672">).</span>collect
+</span></span></code></pre></div><h2 id="22-程序的输出">2.2 程序的输出</h2>
+<ul>
+<li>
+<p>print相关</p>
+<ul>
+<li>
+<p>print在本地模式：直接显示；</p>
+</li>
+<li>
+<p>集群模式：打印到log文件中</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>e.g. 用println打印RDD2中的所有元素；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> <span style="color:#a6e22e">Array1</span><span style="color:#66d9ef">=</span><span style="color:#a6e22e">Array</span><span style="color:#f92672">(</span><span style="color:#ae81ff">7</span><span style="color:#f92672">,</span><span style="color:#ae81ff">8</span><span style="color:#f92672">,</span><span style="color:#ae81ff">11</span><span style="color:#f92672">,</span><span style="color:#ae81ff">12</span><span style="color:#f92672">,</span><span style="color:#ae81ff">14</span><span style="color:#f92672">,</span><span style="color:#ae81ff">15</span><span style="color:#f92672">,</span><span style="color:#ae81ff">16</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> <span style="color:#a6e22e">RDD2</span><span style="color:#66d9ef">=</span>sc<span style="color:#f92672">.</span>parallelize<span style="color:#f92672">(</span><span style="color:#a6e22e">Array1</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a6e22e">RDD2</span><span style="color:#f92672">.</span><span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>x<span style="color:#66d9ef">&lt;-</span><span style="color:#a6e22e">RDD2</span><span style="color:#f92672">.</span>collect<span style="color:#f92672">)</span>println<span style="color:#f92672">(</span>x<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">RDD2</span><span style="color:#f92672">.</span>foreach<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>println<span style="color:#f92672">(</span>x<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">RDD2</span><span style="color:#f92672">.</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">RDD2</span><span style="color:#f92672">.</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">)</span>
+</span></span></code></pre></div><ul>
+<li>写入文件</li>
+</ul>
+<p><code>saveAsTextFile</code>(必须是不存在的目录路径，如已经存在 会出错)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a6e22e">RDD2</span><span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/1&#34;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206220348318.png"
+        data-srcset="/asserts/bigdata/image-20231206220348318.png, /asserts/bigdata/image-20231206220348318.png 1.5x, /asserts/bigdata/image-20231206220348318.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206220348318.png"
+        title="image-20231206220348318" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206220416181.png"
+        data-srcset="/asserts/bigdata/image-20231206220416181.png, /asserts/bigdata/image-20231206220416181.png 1.5x, /asserts/bigdata/image-20231206220416181.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206220416181.png"
+        title="image-20231206220416181" /></p>
+<h2 id="23-spark集成开发环境建立">2.3 spark集成开发环境建立</h2>
+<p>从菜单New-&gt;Project</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206221436602.png"
+        data-srcset="/asserts/bigdata/image-20231206221436602.png, /asserts/bigdata/image-20231206221436602.png 1.5x, /asserts/bigdata/image-20231206221436602.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206221436602.png"
+        title="image-20231206221436602" /></p>
+<p>Create.</p>
+<p><strong>File-&gt;Project Structure</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206221634116.png"
+        data-srcset="/asserts/bigdata/image-20231206221634116.png, /asserts/bigdata/image-20231206221634116.png 1.5x, /asserts/bigdata/image-20231206221634116.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206221634116.png"
+        title="image-20231206221634116" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206221709303.png"
+        data-srcset="/asserts/bigdata/image-20231206221709303.png, /asserts/bigdata/image-20231206221709303.png 1.5x, /asserts/bigdata/image-20231206221709303.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206221709303.png"
+        title="image-20231206221709303" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231206221815966.png"
+        data-srcset="/asserts/bigdata/image-20231206221815966.png, /asserts/bigdata/image-20231206221815966.png 1.5x, /asserts/bigdata/image-20231206221815966.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231206221815966.png"
+        title="image-20231206221815966" /></p>
+<p>选择所有jar包，后点击ok，等待所有进度完成。</p>
+<p>编写程序</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[3]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> rdd1<span style="color:#66d9ef">=</span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/b.txt&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      rdd1<span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/3&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">//Thread.sleep(1000*60*5) 为了中途我们能够访问到并浏览到网页
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="24-转换操作">2.4 转换操作</h2>
+<h4 id="filter">filter</h4>
+<p>用法：rdd.filter(func)，func要求返回值是布尔值，如果是真，数据传递到新创建的数据集。</p>
+<p>要用的数据应该产生于程序之外，而非个人的设计。</p>
+<p>wordCount 统计英文单词。</p>
+<p>长度过滤</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> afterFilter3<span style="color:#66d9ef">=</span>rdd1<span style="color:#f92672">.</span>filter<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>length<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>afterFilter3<span style="color:#f92672">.</span>collect
+</span></span></code></pre></div><p>*链式写法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">).</span>filter<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>length<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">4</span><span style="color:#f92672">).</span>collect
+</span></span></code></pre></div><h4 id="map-1">map</h4>
+<p>用法：rdd.map(func)，将rdd中的每一个元素经过func处理，生成一个新的rdd。例如：每个元素+1</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> afterMap<span style="color:#66d9ef">=</span>rdd1<span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>afterMap<span style="color:#f92672">.</span>collect
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">).</span>map<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">).</span>collect
+</span></span></code></pre></div><h4 id="flatmap">flatMap</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">).</span>flatMap<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">).</span>collect
+</span></span></code></pre></div><p>用法：可以把数据集中各元素之间的分隔去掉，之后的数据按func组合。</p>
+<p>e.g. 按照空格分词</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">).</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">)).</span>collect
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">).</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">)).</span>map<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;END&#34;</span><span style="color:#f92672">).</span>collect
+</span></span></code></pre></div><h4 id="reducebykey">reduceByKey</h4>
+<p>rdd.reduceByKey(func) 应用于(K,V)键值对的数据集时，返回一个新的(K,V)形式的数据集，其中每个值是将每个key传递到函数func中进行聚合后的结果。</p>
+<p>处理前期数据：</p>
+<p>e.g. 将每个词写成 <code>(词,1)</code> 的形式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> rdd<span style="color:#66d9ef">=</span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>rdd<span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">)).</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)).</span>collect
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>rdd<span style="color:#f92672">.</span>filter<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>length<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">4</span><span style="color:#f92672">).</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;  &#34;</span><span style="color:#f92672">)).</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)).</span>collect
+</span></span></code></pre></div><p>reduceByKey统计单词</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>rdd<span style="color:#f92672">.</span>filter<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>length<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">4</span><span style="color:#f92672">).</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">)).</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)).</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">).</span>collect
+</span></span></code></pre></div><h2 id="25-行动操作">2.5 行动操作</h2>
+<h4 id="count">count</h4>
+<p>返回元素个数</p>
+<h4 id="collect">collect</h4>
+<p>将RDD转换为Array</p>
+<h4 id="take">take</h4>
+<p>取前n个</p>
+<h4 id="first">first</h4>
+<p>第1个</p>
+<h4 id="foreachfunc">foreach(func)</h4>
+<p>将每个元素送到func处理。</p>
+<h2 id="26-wordcount链式写法">2.6 wordCount链式写法</h2>
+<p>本次笔记记录的大部分都是~</p>
+<p>e.g. 仅可在spark-shell下能够看到结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">).</span>filter<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>length<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">4</span><span style="color:#f92672">).</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">)).</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)).</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">).</span>collect
+</span></span></code></pre></div><p>通用结果</p>
+<pre tabindex="0"><code>sc.textFile(&#34;/home/bigdata3/word.txt&#34;).filter(_.length&gt;4).flatMap(x=&gt;x.split(&#34; &#34;)).map((_,1)).reduceByKey(_+_).foreach(println)
+</code></pre><p>*简化  形参只用了一次，只用了一个，可以把括弧和内部的<code>_</code>全部去掉</p>
+<h1 id="3-集成开发环境">3 集成开发环境</h1>
+<h2 id="30-程序运行时不使用参数">3.0 *程序运行时不使用参数</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[3]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">Thread</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li>窄依赖：数据仅在本分区，本程序中的flatMap,map</li>
+<li>宽依赖：数据在不同分区有交换（shuffle）。本程序中的reduceByKey</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231207122202002.png"
+        data-srcset="/asserts/bigdata/image-20231207122202002.png, /asserts/bigdata/image-20231207122202002.png 1.5x, /asserts/bigdata/image-20231207122202002.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231207122202002.png"
+        title="image-20231207122202002" /></p>
+<p>针对DAG：</p>
+<ul>
+<li>reduceByKey在执行过程中有shuffle操作。</li>
+<li>stage按shuffle进行分隔。</li>
+<li>分区变化：</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231207123146732.png"
+        data-srcset="/asserts/bigdata/image-20231207123146732.png, /asserts/bigdata/image-20231207123146732.png 1.5x, /asserts/bigdata/image-20231207123146732.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231207123146732.png"
+        title="image-20231207123146732" /></p>
+<p>stage0有两个分区，stage1有两个分区，分区无变化。</p>
+<h3 id="如何让本程序变成两个job">*如何让本程序变成两个job？</h3>
+<ul>
+<li>
+<p>添加另一个action操作 （saveAsTextFile）</p>
+</li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[3]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> rdd1<span style="color:#66d9ef">=</span>sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/word.txt&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">)</span><span style="color:#75715e">//此处3！
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        rdd1<span style="color:#f92672">.</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        rdd1<span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/4&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">Thread</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>Job:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231207124555508.png"
+        data-srcset="/asserts/bigdata/image-20231207124555508.png, /asserts/bigdata/image-20231207124555508.png 1.5x, /asserts/bigdata/image-20231207124555508.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231207124555508.png"
+        title="image-20231207124555508" /></p>
+<ul>
+<li>如图：job0的DAG</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231207124738389.png"
+        data-srcset="/asserts/bigdata/image-20231207124738389.png, /asserts/bigdata/image-20231207124738389.png 1.5x, /asserts/bigdata/image-20231207124738389.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231207124738389.png"
+        title="image-20231207124738389" /></p>
+<p>由两个stage构成，stage0和stage1</p>
+<ul>
+<li>job1的DAG</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231207124938031.png"
+        data-srcset="/asserts/bigdata/image-20231207124938031.png, /asserts/bigdata/image-20231207124938031.png 1.5x, /asserts/bigdata/image-20231207124938031.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231207124938031.png"
+        title="image-20231207124938031" /></p>
+<p>虽然有两个stage，但stage2与stage0工作相同，实际上是由stage0完成的…</p>
+<ul>
+<li>根据action的数量生成job</li>
+</ul>
+<h2 id="31-数据平衡">3.1 数据平衡</h2>
+<h3 id="分区">分区</h3>
+<p>创建环境时使用.setMaster(&ldquo;local[3]&quot;)指定了计算使用3个线程，后续如果不指定分区，分区数系统自动优化，数量&lt;=3。</p>
+<p>线程一般是按照cpu核心数确定的。</p>
+<p>一般有shuffle的转换操作都有一个分区参数。创建RDD的方法也有分区参数。</p>
+<h3 id="创建rdd时的分区">创建RDD时的分区</h3>
+<p>创建RDD时：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214102947437.png"
+        data-srcset="/asserts/bigdata/image-20231214102947437.png, /asserts/bigdata/image-20231214102947437.png 1.5x, /asserts/bigdata/image-20231214102947437.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214102947437.png"
+        title="image-20231214102947437" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214103150434.png"
+        data-srcset="/asserts/bigdata/image-20231214103150434.png, /asserts/bigdata/image-20231214103150434.png 1.5x, /asserts/bigdata/image-20231214103150434.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214103150434.png"
+        title="image-20231214103150434" /></p>
+<p>第2个参数是minPartition，也是最少分区数</p>
+<p>代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/11&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .flatMap(x=&gt;x.split(&#34; &#34;))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        .map((_,1))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        .reduceByKey(_+_,3)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        rdd1.foreach(println)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        rdd1.saveAsTextFile(&#34;/home/bigdata3/sparkOut/5&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//      Thread.sleep(1000*60*5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>把针对文件改成针对目录（目录下新建文件）</p>
+</li>
+<li>
+<p>查看分区数据：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214104031656.png"
+        data-srcset="/asserts/bigdata/image-20231214104031656.png, /asserts/bigdata/image-20231214104031656.png 1.5x, /asserts/bigdata/image-20231214104031656.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214104031656.png"
+        title="image-20231214104031656" /></p>
+</li>
+</ul>
+<p>共有5个分区，但有两个分区数据量是0，说明分区数据极其不平衡，后续运算资源的使用就非常不合理。</p>
+<p>观察wordCount完整程序的计算结果分区情况：</p>
+<p>程序</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/11&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/12&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">Thread</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>DAG:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214104927088.png"
+        data-srcset="/asserts/bigdata/image-20231214104927088.png, /asserts/bigdata/image-20231214104927088.png 1.5x, /asserts/bigdata/image-20231214104927088.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214104927088.png"
+        title="image-20231214104927088" /></p>
+<p>观察输出数据文件：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214105219263.png"
+        data-srcset="/asserts/bigdata/image-20231214105219263.png, /asserts/bigdata/image-20231214105219263.png 1.5x, /asserts/bigdata/image-20231214105219263.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214105219263.png"
+        title="image-20231214105219263" /></p>
+<p>平衡</p>
+<h2 id="32-repartition的数据平衡">3.2 repartition的数据平衡</h2>
+<p>~可以进行分区数的调整，同时会对分区数据进行随机的平衡。</p>
+<p>没有repartition:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/11&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/13&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .reduceByKey(_+_)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/13&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//      Thread.sleep(1000*60*5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214105423777.png"
+        data-srcset="/asserts/bigdata/image-20231214105423777.png, /asserts/bigdata/image-20231214105423777.png 1.5x, /asserts/bigdata/image-20231214105423777.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214105423777.png"
+        title="image-20231214105423777" /></p>
+<p>极其不平衡</p>
+<ul>
+<li>加入repartition 重分区：</li>
+<li>minpartition&amp;numpartition</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/11&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>repartition<span style="color:#f92672">(</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/14&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .reduceByKey(_+_)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/13&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//      Thread.sleep(1000*60*5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>数据平衡</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214110131875.png"
+        data-srcset="/asserts/bigdata/image-20231214110131875.png, /asserts/bigdata/image-20231214110131875.png 1.5x, /asserts/bigdata/image-20231214110131875.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214110131875.png"
+        title="image-20231214110131875" /></p>
+<p>结论：经过repartition后，数据平衡状况非常好。</p>
+<h3 id="repartition的放置位置">repartition的放置位置：</h3>
+<p>map之前：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/11&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>repartition<span style="color:#f92672">(</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/15&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .map((_,1))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .reduceByKey(_+_)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/13&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//      Thread.sleep(1000*60*5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214111903897.png"
+        data-srcset="/asserts/bigdata/image-20231214111903897.png, /asserts/bigdata/image-20231214111903897.png 1.5x, /asserts/bigdata/image-20231214111903897.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214111903897.png"
+        title="image-20231214111903897" /></p>
+<p>几乎平衡;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/11&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        .flatMap(x=&gt;x.split(&#34; &#34;))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">.</span>repartition<span style="color:#f92672">(</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/16&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .map((_,1))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//        .reduceByKey(_+_)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//        .saveAsTextFile(&#34;/home/bigdata3/sparkOut/13&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//      Thread.sleep(1000*60*5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214111952003.png"
+        data-srcset="/asserts/bigdata/image-20231214111952003.png, /asserts/bigdata/image-20231214111952003.png 1.5x, /asserts/bigdata/image-20231214111952003.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214111952003.png"
+        title="image-20231214111952003" /></p>
+<p>不平衡，但比刚生成RDD那会儿好多了。</p>
+<ul>
+<li>考虑两个因素：要在窄依赖计算的最前端使用；因为repartition需要通过网络传递数据，需要考虑网络传输数据的开销。效果在 .flatMap(x=&gt;x.split(&rdquo; &ldquo;)) 之后使用 比 在sc.textFile(&quot;/home/bigdata3/wordTest&rdquo;,4)后使用 更好一些</li>
+<li>结论：综合考虑：repartition应该放到flatMap后比较好。</li>
+</ul>
+<h3 id="考虑数据平衡和输出的wordcount程序">考虑数据平衡和输出的wordCount程序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>repartition<span style="color:#f92672">(</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/18&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">Thread</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>#.reduceByKey(<em>+</em>,1) 有shuffle操作，因此有第二个参数；设输出为1；</p>
+<ul>
+<li>
+<p>建议文档整理好后放到一个公开的地方；</p>
+</li>
+<li>
+<p>DAG：</p>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214113955645.png"
+        data-srcset="/asserts/bigdata/image-20231214113955645.png, /asserts/bigdata/image-20231214113955645.png 1.5x, /asserts/bigdata/image-20231214113955645.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214113955645.png"
+        title="image-20231214113955645" /></p>
+<ul>
+<li>最终的输出结果：1个区：</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214114100476.png"
+        data-srcset="/asserts/bigdata/image-20231214114100476.png, /asserts/bigdata/image-20231214114100476.png 1.5x, /asserts/bigdata/image-20231214114100476.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214114100476.png"
+        title="image-20231214114100476" /></p>
+<p>排序：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>repartition<span style="color:#f92672">(</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>sortBy<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/19&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">Thread</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="33-程序运行参数的使用">3.3 程序运行参数的使用：</h2>
+<p>使用运行参数的程序：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> conf<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;firstSpark&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[5]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>args<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">))</span><span style="color:#75715e">//(&#34;/home/bigdata3/wordTest&#34;,4)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">.</span>flatMap<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>repartition<span style="color:#f92672">(</span><span style="color:#ae81ff">4</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>map<span style="color:#f92672">((</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>sortBy<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span>saveAsTextFile<span style="color:#f92672">(</span>args<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span><span style="color:#75715e">//(&#34;/home/bigdata3/sparkOut/19&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#75715e">//Thread.sleep(1000*60*5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="运行参数的输入">运行参数的输入</h3>
+<p><strong>集成开发环境下</strong></p>
+<p>菜单-&gt;run-&gt;edit configuration:</p>
+<p>add new configuration-&gt;application</p>
+<p>填入相关内容,运行：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214115947246.png"
+        data-srcset="/asserts/bigdata/image-20231214115947246.png, /asserts/bigdata/image-20231214115947246.png 1.5x, /asserts/bigdata/image-20231214115947246.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214115947246.png"
+        title="image-20231214115947246" /></p>
+<p>DAG:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214120212911.png"
+        data-srcset="/asserts/bigdata/image-20231214120212911.png, /asserts/bigdata/image-20231214120212911.png 1.5x, /asserts/bigdata/image-20231214120212911.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214120212911.png"
+        title="image-20231214120212911" /></p>
+<p>*<strong>spark-submit下</strong></p>
+<h2 id="34-程序打包">3.4 程序打包</h2>
+<h4 id="首先要修改程序">首先要修改程序</h4>
+<p>虽然spark-submit程序运行时，会覆盖程序里写的运行环境，但是为了避免冲突，还是删除相关内容。本程序是<code>.setMaster(&quot;local[5]&quot;)</code> 删去</p>
+<h4 id="打包前设置">打包前设置</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214121429311.png"
+        data-srcset="/asserts/bigdata/image-20231214121429311.png, /asserts/bigdata/image-20231214121429311.png 1.5x, /asserts/bigdata/image-20231214121429311.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214121429311.png"
+        title="image-20231214121429311" /></p>
+<p>选择Artifacts界面：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214121536433.png"
+        data-srcset="/asserts/bigdata/image-20231214121536433.png, /asserts/bigdata/image-20231214121536433.png 1.5x, /asserts/bigdata/image-20231214121536433.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214121536433.png"
+        title="image-20231214121536433" /></p>
+<p>add jar</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214121609676.png"
+        data-srcset="/asserts/bigdata/image-20231214121609676.png, /asserts/bigdata/image-20231214121609676.png 1.5x, /asserts/bigdata/image-20231214121609676.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214121609676.png"
+        title="image-20231214121609676" /></p>
+<p>选入 <code>Main</code> (本项目的class刚好叫main) ——&gt; 一定要选入！观察输出路径，选择ok</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214121848743.png"
+        data-srcset="/asserts/bigdata/image-20231214121848743.png, /asserts/bigdata/image-20231214121848743.png 1.5x, /asserts/bigdata/image-20231214121848743.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214121848743.png"
+        title="image-20231214121848743" /></p>
+<p>减小生成的jar包空间占用：把不用的库文件删除（除最后一个，其他全部删除）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214122313706.png"
+        data-srcset="/asserts/bigdata/image-20231214122313706.png, /asserts/bigdata/image-20231214122313706.png 1.5x, /asserts/bigdata/image-20231214122313706.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214122313706.png"
+        title="image-20231214122313706" /></p>
+<p>点击ok，完成设置</p>
+<h4 id="打包">打包</h4>
+<p>菜单-&gt;build-&gt;build artifacts</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214122414243.png"
+        data-srcset="/asserts/bigdata/image-20231214122414243.png, /asserts/bigdata/image-20231214122414243.png 1.5x, /asserts/bigdata/image-20231214122414243.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214122414243.png"
+        title="image-20231214122414243" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214122511390.png"
+        data-srcset="/asserts/bigdata/image-20231214122511390.png, /asserts/bigdata/image-20231214122511390.png 1.5x, /asserts/bigdata/image-20231214122511390.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214122511390.png"
+        title="image-20231214122511390" /></p>
+<p>建议第一次选build，以后都选rebuild。等进度条完成，查看生成的jar包。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214123106289.png"
+        data-srcset="/asserts/bigdata/image-20231214123106289.png, /asserts/bigdata/image-20231214123106289.png 1.5x, /asserts/bigdata/image-20231214123106289.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214123106289.png"
+        title="image-20231214123106289" /></p>
+<h4 id="运行jar包">运行jar包</h4>
+<p>用spark-submit运行</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20231214123835738.png"
+        data-srcset="/asserts/bigdata/image-20231214123835738.png, /asserts/bigdata/image-20231214123835738.png 1.5x, /asserts/bigdata/image-20231214123835738.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20231214123835738.png"
+        title="image-20231214123835738" /></p>
+<p>run-example 必须要8g内存。所以默认不跑</p>
+<p>我们 目前运行的是第1个</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>spark-submit <span style="color:#f92672">[</span>option<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Options:
+</span></span><span style="display:flex;"><span>  --master MASTER_URL         spark://host:port, mesos://host:port, yarn,
+</span></span><span style="display:flex;"><span>                              k8s://https://host:port, or local <span style="color:#f92672">(</span>Default: local<span style="color:#f92672">[</span>*<span style="color:#f92672">])</span>.
+</span></span><span style="display:flex;"><span>  --deploy-mode DEPLOY_MODE   Whether to launch the driver program locally <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;client&#34;</span><span style="color:#f92672">)</span> or
+</span></span><span style="display:flex;"><span>                              on one of the worker machines inside the cluster <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;cluster&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                              <span style="color:#f92672">(</span>Default: client<span style="color:#f92672">)</span>.
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="ch03 spark语言入门" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="ch03 spark语言入门"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="ch03 spark语言入门"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" data-title="ch03 spark语言入门"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l2scala%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="next" rel="next" title="ch02 scala语言入门">ch02 scala语言入门<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">????</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
