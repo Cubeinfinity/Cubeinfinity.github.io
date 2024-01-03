@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8\/"
-        },"genre": "posts","wordcount":  3204 ,
+        },"genre": "posts","wordcount":  3638 ,
         "url": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8\/","datePublished": "2024-01-03T00:00:00+08:00","dateModified": "2024-01-03T00:00:00+08:00","publisher": {
             "@type": "Organization",
             "name": "","logo": "http:\/\/example.org\/image\/avatar.png"},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ch03 spark语言入门</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Cai</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE-hadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>大数据-Hadoop集群完全分布式</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3204 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3638 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -203,12 +203,15 @@
               <ul>
                 <li><a href="#首先要修改程序">首先要修改程序</a></li>
                 <li><a href="#打包前设置">打包前设置</a></li>
+                <li><a href="#spark配置">spark配置</a></li>
                 <li><a href="#打包">打包</a></li>
                 <li><a href="#运行jar包">运行jar包</a></li>
+                <li><a href="#运行脚本">运行脚本</a></li>
               </ul>
             </li>
           </ul>
         </li>
+        <li><a href="#35-集群模式">3.5 集群模式</a></li>
       </ul>
     </li>
   </ul>
@@ -940,6 +943,74 @@
         alt="/asserts/bigdata/image-20231214122313706.png"
         title="image-20231214122313706" /></p>
 <p>点击ok，完成设置</p>
+<h4 id="spark配置">spark配置</h4>
+<p>配置文件路径：在spark软件包下conf文件夹</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103153623186.png"
+        data-srcset="/asserts/bigdata/image-20240103153623186.png, /asserts/bigdata/image-20240103153623186.png 1.5x, /asserts/bigdata/image-20240103153623186.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103153623186.png"
+        title="image-20240103153623186" /></p>
+<p>但.template是模板文件，需要把后缀改无</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp spark-env.sh.template spark-env.sh
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103153933177.png"
+        data-srcset="/asserts/bigdata/image-20240103153933177.png, /asserts/bigdata/image-20240103153933177.png 1.5x, /asserts/bigdata/image-20240103153933177.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103153933177.png"
+        title="image-20240103153933177" /></p>
+<p>集群配置：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103154408746.png"
+        data-srcset="/asserts/bigdata/image-20240103154408746.png, /asserts/bigdata/image-20240103154408746.png 1.5x, /asserts/bigdata/image-20240103154408746.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103154408746.png"
+        title="image-20240103154408746" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103154444639.png"
+        data-srcset="/asserts/bigdata/image-20240103154444639.png, /asserts/bigdata/image-20240103154444639.png 1.5x, /asserts/bigdata/image-20240103154444639.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103154444639.png"
+        title="image-20240103154444639" /></p>
+<p>*hadoop的standalone是local模式，spark的standalone是集群模式。</p>
+<p>但我们不用spark的集群，所以可以不配。</p>
+<p>需要配置的是以下两项：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103154950132.png"
+        data-srcset="/asserts/bigdata/image-20240103154950132.png, /asserts/bigdata/image-20240103154950132.png 1.5x, /asserts/bigdata/image-20240103154950132.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103154950132.png"
+        title="image-20240103154950132" /></p>
+<p>路径刚好在同一个文件夹下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103155151533.png"
+        data-srcset="/asserts/bigdata/image-20240103155151533.png, /asserts/bigdata/image-20240103155151533.png 1.5x, /asserts/bigdata/image-20240103155151533.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103155151533.png"
+        title="image-20240103155151533" /></p>
+<p>pwd获取路径</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export HADOOP_CONF_DIR<span style="color:#f92672">=</span>/usr/hadoop/etc/hadoop
+</span></span><span style="display:flex;"><span>export YARN_CONF_DIR<span style="color:#f92672">=</span>/usr/hadoop/etc/hadoop
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103155400608.png"
+        data-srcset="/asserts/bigdata/image-20240103155400608.png, /asserts/bigdata/image-20240103155400608.png 1.5x, /asserts/bigdata/image-20240103155400608.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103155400608.png"
+        title="image-20240103155400608" /></p>
 <h4 id="打包">打包</h4>
 <p>菜单-&gt;build-&gt;build artifacts</p>
 <p><img
@@ -987,7 +1058,65 @@
 </span></span><span style="display:flex;"><span>  --deploy-mode DEPLOY_MODE   Whether to launch the driver program locally <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;client&#34;</span><span style="color:#f92672">)</span> or
 </span></span><span style="display:flex;"><span>                              on one of the worker machines inside the cluster <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;cluster&#34;</span><span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>                              <span style="color:#f92672">(</span>Default: client<span style="color:#f92672">)</span>.
-</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+</span></span></code></pre></div><h4 id="运行脚本">运行脚本</h4>
+<p>写一个运行脚本，当前使用local模式运行，文件也使用本地文件。</p>
+<p>*注意空格和空行的使用</p>
+<p>获取jar包路径</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103160050198.png"
+        data-srcset="/asserts/bigdata/image-20240103160050198.png, /asserts/bigdata/image-20240103160050198.png 1.5x, /asserts/bigdata/image-20240103160050198.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103160050198.png"
+        title="image-20240103160050198" /></p>
+<p>脚本 mySparkSubmit.sh</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spark-submit --master local --class Main <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	/home/bigdata3/IdeaProjects/firstSpark/out/artifacts/firstSpark_jar/firstSpark.jar <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	<span style="color:#e6db74">&#34;/home/bigdata3/wordTest&#34;</span> <span style="color:#e6db74">&#34;/home/bigdata3/sparkOut/30&#34;</span>
+</span></span></code></pre></div><p>加可执行权限执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>chmod +x mySparkSubmit.sh
+</span></span><span style="display:flex;"><span>./mySparkSubmit.sh
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103163158126.png"
+        data-srcset="/asserts/bigdata/image-20240103163158126.png, /asserts/bigdata/image-20240103163158126.png 1.5x, /asserts/bigdata/image-20240103163158126.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103163158126.png"
+        title="image-20240103163158126" /></p>
+<p>执行完成</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103163226825.png"
+        data-srcset="/asserts/bigdata/image-20240103163226825.png, /asserts/bigdata/image-20240103163226825.png 1.5x, /asserts/bigdata/image-20240103163226825.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103163226825.png"
+        title="image-20240103163226825" /></p>
+<h2 id="35-集群模式">3.5 集群模式</h2>
+<p>集群模式根据driver所在位置，分为client（driver在本机）、cluster（driver在master上），两种模式都需要ssh对集群免密。</p>
+<p>集群模式运行，无法读取本地文件，需要先上传输入文件</p>
+<p>client模式运行脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spark-submit --master local --deploy-mode client --class Main <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	firstSpark.jar <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	<span style="color:#e6db74">&#34;/232140110101/wordTest&#34;</span> <span style="color:#e6db74">&#34;/232140110101/sparkOut/31&#34;</span>
+</span></span></code></pre></div><p>cluster模式运行脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spark-submit --master spark://master:9000 --deploy-mode cluster <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	firstSpark.jar <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>	<span style="color:#e6db74">&#34;/232140110101/wordTest&#34;</span> <span style="color:#e6db74">&#34;/232140110101/sparkOut/100&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spark-submit --master yarn --deploy-mode cluster --class Main <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    firstSpark.jar <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">&#34;/232140110101/wordTest&#34;</span> <span style="color:#e6db74">&#34;/232140110101/sparkOut/100&#34;</span>
+</span></span></code></pre></div><p>*因为内存不足暂时无法完成。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240103192458735.png"
+        data-srcset="/asserts/bigdata/image-20240103192458735.png, /asserts/bigdata/image-20240103192458735.png 1.5x, /asserts/bigdata/image-20240103192458735.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240103192458735.png"
+        title="image-20240103192458735" /></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
