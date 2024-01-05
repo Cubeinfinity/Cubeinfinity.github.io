@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>ch04 spark电影评级 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="ch04 spark电影评级" />
+<meta property="og:description" content="一个电影分数评级的例子。spark local模式" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-05T23:00:00+08:00" />
+<meta property="article:modified_time" content="2024-01-05T23:00:00+08:00" /><meta property="og:site_name" content="CubeInfinity" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="ch04 spark电影评级"/>
+<meta name="twitter:description" content="一个电影分数评级的例子。spark local模式"/>
+<meta name="application-name" content="Hi!CUBE">
+<meta name="apple-mobile-web-app-title" content="Hi!CUBE"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7/" /><link rel="prev" href="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" /><link rel="next" href="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ch04 spark电影评级",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7\/"
+        },"genre": "posts","wordcount":  1164 ,
+        "url": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7\/","datePublished": "2024-01-05T23:00:00+08:00","dateModified": "2024-01-05T23:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "","logo": "http:\/\/example.org\/image\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "Cai"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> 文章 </a><a class="menu-item" href="/tags/" title="Tags"> 标签 </a><a class="menu-item" href="/categories/" title="Categories"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">文章</a><a class="menu-item" href="/tags/" title="Tags">标签</a><a class="menu-item" href="/categories/" title="Categories">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ch04 spark电影评级</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Cai</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE-hadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>大数据-Hadoop集群完全分布式</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-05">2024-01-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1164 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据集">数据集</a></li>
+    <li><a href="#找出评分最高的10部电影名">找出评分最高的10部电影名</a>
+      <ul>
+        <li><a href="#思路">思路</a>
+          <ul>
+            <li><a href="#评分最高的依据">评分最高的依据</a></li>
+            <li><a href="#求平均值">求平均值</a></li>
+          </ul>
+        </li>
+        <li><a href="#新建项目">新建项目</a></li>
+        <li><a href="#生成rdd">生成RDD</a>
+          <ul>
+            <li><a href="#取出movieidrating">取出MovieID::Rating</a></li>
+            <li><a href="#计算rating的和">计算rating的和</a></li>
+            <li><a href="#求rating的个数">求rating的个数</a></li>
+            <li><a href="#求平均值-1">求平均值</a></li>
+            <li><a href="#加入电影名并排序">加入电影名，并排序</a></li>
+            <li><a href="#排序">排序</a></li>
+          </ul>
+        </li>
+        <li><a href="#优化">优化</a>
+          <ul>
+            <li><a href="#优化之前程序的dag">优化之前程序的DAG</a></li>
+            <li><a href="#image-20240105173354827assertsbigdataimage-20240105173354827png"><img src="/asserts/bigdata/image-20240105173354827.png" alt="image-20240105173354827"></a></li>
+            <li><a href="#测试程序">测试程序</a></li>
+            <li><a href="#优化之后程序的dag">优化之后程序的DAG</a></li>
+            <li><a href="#程序运行结果">程序运行结果</a>
+              <ul>
+                <li><a href="#对评分次数进行过滤">对评分次数进行过滤</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>一个电影分数评级的例子。spark local模式</p>
+<p>先把数据集下下来。（ml-im.zip）</p>
+<h1 id="数据集">数据集</h1>
+<ul>
+<li>选择非json格式来处理。</li>
+</ul>
+<p>从README进入：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105123136644.png"
+        data-srcset="/asserts/bigdata/image-20240105123136644.png, /asserts/bigdata/image-20240105123136644.png 1.5x, /asserts/bigdata/image-20240105123136644.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105123136644.png"
+        title="image-20240105123136644" /></p>
+<p><code>ratings.dat</code></p>
+<ul>
+<li>UserID::MovieID::Rating::Timestamp</li>
+</ul>
+<p><code>users.dat</code></p>
+<ul>
+<li>UserID::Gender::Age::Occupation::Zip-code</li>
+</ul>
+<p><code>movies.dat</code></p>
+<ul>
+<li>MovieID::Title::Genres</li>
+</ul>
+<h1 id="找出评分最高的10部电影名">找出评分最高的10部电影名</h1>
+<h2 id="思路">思路</h2>
+<h3 id="评分最高的依据">评分最高的依据</h3>
+<p>Rating的平均值是最合理的。</p>
+<p>计算平均值需要3步：求rating和、求rating次数、做除法。</p>
+<h3 id="求平均值">求平均值</h3>
+<ul>
+<li>求rating和：
+<ul>
+<li>数据生成RDD、数据分割、取出有用数据、计算rating和。</li>
+</ul>
+</li>
+</ul>
+<h2 id="新建项目">新建项目</h2>
+<p>打开idea 从头生成一个项目</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105124056086.png"
+        data-srcset="/asserts/bigdata/image-20240105124056086.png, /asserts/bigdata/image-20240105124056086.png 1.5x, /asserts/bigdata/image-20240105124056086.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105124056086.png"
+        title="image-20240105124056086" /></p>
+<p>新建包</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105124309638.png"
+        data-srcset="/asserts/bigdata/image-20240105124309638.png, /asserts/bigdata/image-20240105124309638.png 1.5x, /asserts/bigdata/image-20240105124309638.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105124309638.png"
+        title="image-20240105124309638" /></p>
+<p>新建scala.class</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105124541344.png"
+        data-srcset="/asserts/bigdata/image-20240105124541344.png, /asserts/bigdata/image-20240105124541344.png 1.5x, /asserts/bigdata/image-20240105124541344.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105124541344.png"
+        title="image-20240105124541344" /></p>
+<p>手工加库，删去再加回：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105124806259.png"
+        data-srcset="/asserts/bigdata/image-20240105124806259.png, /asserts/bigdata/image-20240105124806259.png 1.5x, /asserts/bigdata/image-20240105124806259.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105124806259.png"
+        title="image-20240105124806259" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105125003340.png"
+        data-srcset="/asserts/bigdata/image-20240105125003340.png, /asserts/bigdata/image-20240105125003340.png 1.5x, /asserts/bigdata/image-20240105125003340.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105125003340.png"
+        title="image-20240105125003340" /></p>
+<ul>
+<li>初始化</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">moveRating</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> conf <span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;movieRating&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[*]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="生成rdd">生成RDD</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> ratings <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/ratings.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>先不使用参数，打印出来看看</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>ratings<span style="color:#f92672">.</span>take<span style="color:#f92672">(</span><span style="color:#ae81ff">30</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105125843630.png"
+        data-srcset="/asserts/bigdata/image-20240105125843630.png, /asserts/bigdata/image-20240105125843630.png 1.5x, /asserts/bigdata/image-20240105125843630.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105125843630.png"
+        title="image-20240105125843630" /></p>
+<ul>
+<li>
+<p>把数据分开：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> ratings <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/ratings.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>ratings<span style="color:#f92672">.</span>take<span style="color:#f92672">(</span><span style="color:#ae81ff">30</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">.</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">))</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105130243091.png"
+        data-srcset="/asserts/bigdata/image-20240105130243091.png, /asserts/bigdata/image-20240105130243091.png 1.5x, /asserts/bigdata/image-20240105130243091.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105130243091.png"
+        title="image-20240105130243091" /></p>
+</li>
+</ul>
+<h3 id="取出movieidrating">取出MovieID::Rating</h3>
+<p>格式改成(MovieID,Rating)</p>
+<ul>
+<li>Array(UserID,MovieID,Rating,Timestamp) 从中取出索引1，索引2位置的值</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> ratings <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/ratings.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">),</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)))</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105163758821.png"
+        data-srcset="/asserts/bigdata/image-20240105163758821.png, /asserts/bigdata/image-20240105163758821.png 1.5x, /asserts/bigdata/image-20240105163758821.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105163758821.png"
+        title="image-20240105163758821" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105163836863.png"
+        data-srcset="/asserts/bigdata/image-20240105163836863.png, /asserts/bigdata/image-20240105163836863.png 1.5x, /asserts/bigdata/image-20240105163836863.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105163836863.png"
+        title="image-20240105163836863" /></p>
+<h3 id="计算rating的和">计算rating的和</h3>
+<p>把同一部电影的评分加起来：先将字符串改成数值，然后相加</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ratings <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/ratings.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">),</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>toDouble<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span><span style="color:#f92672">+</span><span style="color:#66d9ef">_</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105164344352.png"
+        data-srcset="/asserts/bigdata/image-20240105164344352.png, /asserts/bigdata/image-20240105164344352.png 1.5x, /asserts/bigdata/image-20240105164344352.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105164344352.png"
+        title="image-20240105164344352" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105164358533.png"
+        data-srcset="/asserts/bigdata/image-20240105164358533.png, /asserts/bigdata/image-20240105164358533.png 1.5x, /asserts/bigdata/image-20240105164358533.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105164358533.png"
+        title="image-20240105164358533" /></p>
+<h3 id="求rating的个数">求rating的个数</h3>
+<p>截断一下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ratings <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/ratings.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">),</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> sumRatings<span style="color:#66d9ef">=</span>ratings
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span> x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>toDouble<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">_</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>统计rating的个数(?)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ratingsCount<span style="color:#66d9ef">=</span>ratings
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span> <span style="color:#ae81ff">1.</span>toDouble<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">_</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    ratingsCount<span style="color:#f92672">.</span>take<span style="color:#f92672">(</span><span style="color:#ae81ff">30</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105165322912.png"
+        data-srcset="/asserts/bigdata/image-20240105165322912.png, /asserts/bigdata/image-20240105165322912.png 1.5x, /asserts/bigdata/image-20240105165322912.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105165322912.png"
+        title="image-20240105165322912" /></p>
+<p>也有只有1个评分的。</p>
+<h3 id="求平均值-1">求平均值</h3>
+<p>必须是同一个的movie才能进行计算，否则无意义，所以先构建数据集(movieId,(总分，评分次数))，然后计算。</p>
+<ul>
+<li>从spark官网进入 点击找到RDD编程，找到join的用法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> sumRatingsCounts<span style="color:#66d9ef">=</span>sumRatings<span style="color:#f92672">.</span>join<span style="color:#f92672">(</span>ratingsCount<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> avgRatings<span style="color:#66d9ef">=</span>sumRatingsCounts<span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_1<span style="color:#f92672">/</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//avgRatings.take(30).foreach(println)
+</span></span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105171110596.png"
+        data-srcset="/asserts/bigdata/image-20240105171110596.png, /asserts/bigdata/image-20240105171110596.png 1.5x, /asserts/bigdata/image-20240105171110596.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105171110596.png"
+        title="image-20240105171110596" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105171045216.png"
+        data-srcset="/asserts/bigdata/image-20240105171045216.png, /asserts/bigdata/image-20240105171045216.png 1.5x, /asserts/bigdata/image-20240105171045216.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105171045216.png"
+        title="image-20240105171045216" /></p>
+<h3 id="加入电影名并排序">加入电影名，并排序</h3>
+<p>读入<code>movies.dat</code>: MovieID::Title</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> movies <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path <span style="color:#66d9ef">=</span> <span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/movies.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">),</span> x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)))</span>
+</span></span></code></pre></div><p>把两个合起来：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>      <span style="color:#f92672">.</span>join<span style="color:#f92672">(</span>avgRatings<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105171955152.png"
+        data-srcset="/asserts/bigdata/image-20240105171955152.png, /asserts/bigdata/image-20240105171955152.png 1.5x, /asserts/bigdata/image-20240105171955152.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105171955152.png"
+        title="image-20240105171955152" /></p>
+<h3 id="排序">排序</h3>
+<p>将平均分(avgRatings)调整到key的位置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> movies <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path <span style="color:#66d9ef">=</span> <span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/movies.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">),</span> x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>join<span style="color:#f92672">(</span>avgRatings<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">,(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_1<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>sortByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">false</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>可以看出前10差不多全是<code>5.0</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105172339612.png"
+        data-srcset="/asserts/bigdata/image-20240105172339612.png, /asserts/bigdata/image-20240105172339612.png 1.5x, /asserts/bigdata/image-20240105172339612.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105172339612.png"
+        title="image-20240105172339612" /></p>
+<h2 id="优化">优化</h2>
+<h3 id="优化之前程序的dag">优化之前程序的DAG</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">moveRating</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> conf <span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;movieRating&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[*]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ratings <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/ratings.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">),</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> sumRatings<span style="color:#66d9ef">=</span>ratings
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span> x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>toDouble<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">_</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ratingsCount<span style="color:#66d9ef">=</span>ratings
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span> <span style="color:#ae81ff">1.</span>toDouble<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">_</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> sumRatingsCounts<span style="color:#66d9ef">=</span>sumRatings<span style="color:#f92672">.</span>join<span style="color:#f92672">(</span>ratingsCount<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> avgRatings<span style="color:#66d9ef">=</span>sumRatingsCounts<span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_1<span style="color:#f92672">/</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> movies <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path <span style="color:#66d9ef">=</span> <span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/movies.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">),</span> x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>join<span style="color:#f92672">(</span>avgRatings<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">,(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_1<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>sortByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">false</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    movies<span style="color:#f92672">.</span>take<span style="color:#f92672">(</span><span style="color:#ae81ff">30</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>让程序停下看DAG：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#a6e22e">Thread</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105173306333.png"
+        data-srcset="/asserts/bigdata/image-20240105173306333.png, /asserts/bigdata/image-20240105173306333.png 1.5x, /asserts/bigdata/image-20240105173306333.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105173306333.png"
+        title="image-20240105173306333" /></p>
+<p>job0:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105173237648.png"
+        data-srcset="/asserts/bigdata/image-20240105173237648.png, /asserts/bigdata/image-20240105173237648.png 1.5x, /asserts/bigdata/image-20240105173237648.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105173237648.png"
+        title="image-20240105173237648" /></p>
+<p>stage1:(3)map -&gt;reduceByKey</p>
+<p>stage2:(3)map -&gt;reduceByKey</p>
+<p>s1和s2 的输入数据集相同，分成了2个分支，又合成了1个分支，执行效率会很差，同时，程序结构也非常差。优化方法：本部分从开始到结束 全部使用1个分支。</p>
+<p>程序优化位置为：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105174218394.png"
+        data-srcset="/asserts/bigdata/image-20240105174218394.png, /asserts/bigdata/image-20240105174218394.png 1.5x, /asserts/bigdata/image-20240105174218394.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105174218394.png"
+        title="image-20240105174218394" /></p>
+<p>把 <code>.toDouble</code> 放到数据集里边。</p>
+<p>作为K-V的样子</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">),(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">).</span>toDouble<span style="color:#f92672">,</span><span style="color:#ae81ff">1.</span>toDouble<span style="color:#f92672">)))</span>
+</span></span></code></pre></div><p>总分和评分次数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">((</span>x<span style="color:#f92672">,</span>y<span style="color:#f92672">)=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">+</span>y<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">+</span>y<span style="color:#f92672">.</span>_2<span style="color:#f92672">))</span>
+</span></span></code></pre></div><p>计算平均值</p>
+<pre tabindex="0"><code>.map(x=&gt;(x._1,x._2._1/x._2._2))
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105175718369.png"
+        data-srcset="/asserts/bigdata/image-20240105175718369.png, /asserts/bigdata/image-20240105175718369.png 1.5x, /asserts/bigdata/image-20240105175718369.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105175718369.png"
+        title="image-20240105175718369" /></p>
+<p>job1:</p>
+<h3 id="image-20240105173354827assertsbigdataimage-20240105173354827png"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105173354827.png"
+        data-srcset="/asserts/bigdata/image-20240105173354827.png, /asserts/bigdata/image-20240105173354827.png 1.5x, /asserts/bigdata/image-20240105173354827.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105173354827.png"
+        title="image-20240105173354827" /></h3>
+<p>没什么要改的，直接注释回来。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105180134041.png"
+        data-srcset="/asserts/bigdata/image-20240105180134041.png, /asserts/bigdata/image-20240105180134041.png 1.5x, /asserts/bigdata/image-20240105180134041.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105180134041.png"
+        title="image-20240105180134041" /></p>
+<h3 id="测试程序">测试程序</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105180245482.png"
+        data-srcset="/asserts/bigdata/image-20240105180245482.png, /asserts/bigdata/image-20240105180245482.png 1.5x, /asserts/bigdata/image-20240105180245482.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105180245482.png"
+        title="image-20240105180245482" /></p>
+<p>看DAG：</p>
+<h3 id="优化之后程序的dag">优化之后程序的DAG</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105180457299.png"
+        data-srcset="/asserts/bigdata/image-20240105180457299.png, /asserts/bigdata/image-20240105180457299.png 1.5x, /asserts/bigdata/image-20240105180457299.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105180457299.png"
+        title="image-20240105180457299" /></p>
+<p>job0：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105180520096.png"
+        data-srcset="/asserts/bigdata/image-20240105180520096.png, /asserts/bigdata/image-20240105180520096.png 1.5x, /asserts/bigdata/image-20240105180520096.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105180520096.png"
+        title="image-20240105180520096" /></p>
+<p>job1：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105180555281.png"
+        data-srcset="/asserts/bigdata/image-20240105180555281.png, /asserts/bigdata/image-20240105180555281.png 1.5x, /asserts/bigdata/image-20240105180555281.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105180555281.png"
+        title="image-20240105180555281" /></p>
+<p>完整程序如下：</p>
+<p>(可以作为成果提交：每一个输入是一个程序分支，在本分支计算完成后和其他分支汇合。)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">moveRating</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> conf <span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;movieRating&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[*]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> avgRatings <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/ratings.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">),(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">).</span>toDouble<span style="color:#f92672">,</span><span style="color:#ae81ff">1.</span>toDouble<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">((</span>x<span style="color:#f92672">,</span>y<span style="color:#f92672">)=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">+</span>y<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">+</span>y<span style="color:#f92672">.</span>_2<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_1<span style="color:#f92672">/</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> movies <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path <span style="color:#66d9ef">=</span> <span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/movies.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">),</span> x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>join<span style="color:#f92672">(</span>avgRatings<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">,(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_1<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>sortByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">false</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    movies<span style="color:#f92672">.</span>take<span style="color:#f92672">(</span><span style="color:#ae81ff">30</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Thread</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="程序运行结果">程序运行结果</h3>
+<p>不合理。数据类型是Double型，而评分都是5分，按常识，此电影所有人都评5分，只能说明评分数太少。需要对评分次数进行过滤。</p>
+<h4 id="对评分次数进行过滤">对评分次数进行过滤</h4>
+<p>只留评分次数大于20的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">((</span>x<span style="color:#f92672">,</span>y<span style="color:#f92672">)=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">+</span>y<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">+</span>y<span style="color:#f92672">.</span>_2<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span>filter<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">20</span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scala" data-lang="scala"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> org.apache.spark.<span style="color:#f92672">{</span><span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">moveRating</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> main<span style="color:#f92672">(</span>args<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Array</span><span style="color:#f92672">[</span><span style="color:#66d9ef">String</span><span style="color:#f92672">])</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Unit</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> conf <span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkConf</span><span style="color:#f92672">().</span>setAppName<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;movieRating&#34;</span><span style="color:#f92672">).</span>setMaster<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;local[*]&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> sc<span style="color:#66d9ef">=new</span> <span style="color:#a6e22e">SparkContext</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> avgRatings <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/ratings.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">),(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">).</span>toDouble<span style="color:#f92672">,</span><span style="color:#ae81ff">1.</span>toDouble<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>reduceByKey<span style="color:#f92672">((</span>x<span style="color:#f92672">,</span>y<span style="color:#f92672">)=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">+</span>y<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">+</span>y<span style="color:#f92672">.</span>_2<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>filter<span style="color:#f92672">(</span>x<span style="color:#66d9ef">=&gt;</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">20</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_1<span style="color:#f92672">/</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> movies <span style="color:#66d9ef">=</span> sc<span style="color:#f92672">.</span>textFile<span style="color:#f92672">(</span>path <span style="color:#66d9ef">=</span> <span style="color:#e6db74">&#34;/home/bigdata3/ml-1m/movies.dat&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> x<span style="color:#f92672">.</span>split<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;::&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x <span style="color:#66d9ef">=&gt;</span> <span style="color:#f92672">(</span>x<span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">),</span> x<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>join<span style="color:#f92672">(</span>avgRatings<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>map<span style="color:#f92672">(</span>x<span style="color:#f92672">=&gt;(</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_2<span style="color:#f92672">,(</span>x<span style="color:#f92672">.</span>_1<span style="color:#f92672">,</span>x<span style="color:#f92672">.</span>_2<span style="color:#f92672">.</span>_1<span style="color:#f92672">)))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>sortByKey<span style="color:#f92672">(</span><span style="color:#66d9ef">false</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    movies<span style="color:#f92672">.</span>take<span style="color:#f92672">(</span><span style="color:#ae81ff">30</span><span style="color:#f92672">).</span>foreach<span style="color:#f92672">(</span>println<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Thread</span><span style="color:#f92672">.</span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">*</span><span style="color:#ae81ff">60</span><span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    sc<span style="color:#f92672">.</span>stop<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>结果：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105181455022.png"
+        data-srcset="/asserts/bigdata/image-20240105181455022.png, /asserts/bigdata/image-20240105181455022.png 1.5x, /asserts/bigdata/image-20240105181455022.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105181455022.png"
+        title="image-20240105181455022" /></p>
+<p>DAG：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105181715981.png"
+        data-srcset="/asserts/bigdata/image-20240105181715981.png, /asserts/bigdata/image-20240105181715981.png 1.5x, /asserts/bigdata/image-20240105181715981.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105181715981.png"
+        title="image-20240105181715981" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/asserts/bigdata/image-20240105181821269.png"
+        data-srcset="/asserts/bigdata/image-20240105181821269.png, /asserts/bigdata/image-20240105181821269.png 1.5x, /asserts/bigdata/image-20240105181821269.png 2x"
+        data-sizes="auto"
+        alt="/asserts/bigdata/image-20240105181821269.png"
+        title="image-20240105181821269" /></p>
+<p>每个输入1条链.</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-05</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7/" data-title="ch04 spark电影评级" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7/" data-title="ch04 spark电影评级"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7/" data-title="ch04 spark电影评级"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l4spark%E7%94%B5%E5%BD%B1%E8%AF%84%E7%BA%A7/" data-title="ch04 spark电影评级"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" class="prev" rel="prev" title="ch00 ubuntu启动hadoop初始配置"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ch00 ubuntu启动hadoop初始配置</a>
+            <a href="/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l3spark%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" class="next" rel="next" title="ch03 spark语言入门">ch03 spark语言入门<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">????</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
