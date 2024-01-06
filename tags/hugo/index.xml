@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>hugo - Tag - CubeInfinity</title>
+        <link>http://example.org/tags/hugo/</link>
+        <description>hugo - Tag - CubeInfinity</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 06 Jan 2024 16:30:00 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/hugo/" rel="self" type="application/rss+xml" /><item>
+    <title>Hogo主题LoveIt配置问题</title>
+    <link>http://example.org/posts/featureconfig/hogo%E4%B8%BB%E9%A2%98loveit%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/</link>
+    <pubDate>Sat, 06 Jan 2024 16:30:00 &#43;0800</pubDate>
+    <author>cube0210</author>
+    <guid>http://example.org/posts/featureconfig/hogo%E4%B8%BB%E9%A2%98loveit%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/</guid>
+    <description><![CDATA[<p>LoveIt主题使用时间：2024.01.01 -</p>
+<p>此主题相关的非默认私人喜好配置将在下方倒序进行更新。</p>]]></description>
+</item>
+</channel>
+</rss>
