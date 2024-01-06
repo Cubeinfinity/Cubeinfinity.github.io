@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>linux期末速通 - CubeInfinity</title><meta name="Description" content="welcome to CUBE"><meta property="og:title" content="linux期末速通" />
+<meta property="og:description" content="初步重点" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-06T23:30:00+08:00" />
+<meta property="article:modified_time" content="2024-01-06T23:30:00+08:00" /><meta property="og:site_name" content="CubeInfinity" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="linux期末速通"/>
+<meta name="twitter:description" content="初步重点"/>
+<meta name="application-name" content="Hi!CUBE">
+<meta name="apple-mobile-web-app-title" content="Hi!CUBE"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/" /><link rel="prev" href="http://example.org/posts/featureconfig/hogo%E4%B8%BB%E9%A2%98loveit%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "linux期末速通",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/posts\/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos\/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A\/"
+        },"genre": "posts","keywords": "linux","wordcount":  4042 ,
+        "url": "http:\/\/example.org\/posts\/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos\/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A\/","datePublished": "2024-01-06T23:30:00+08:00","dateModified": "2024-01-06T23:30:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "","logo": "http:\/\/example.org\/image\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "cube0210"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Posts"> 文章 </a><a class="menu-item" href="/tags/" title="Tags"> 标签 </a><a class="menu-item" href="/categories/" title="Categories"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="CubeInfinity"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>CubeInfinity</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Posts">文章</a><a class="menu-item" href="/tags/" title="Tags">标签</a><a class="menu-item" href="/categories/" title="Categories">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">linux期末速通</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>cube0210</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>计算机组成与OS</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-06">2024-01-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4042 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#shell基本用法">Shell基本用法</a>
+      <ul>
+        <li><a href="#基本操作命令">基本操作命令</a></li>
+        <li><a href="#shell中的特殊字符的作用">Shell中的特殊字符的作用</a></li>
+        <li><a href="#bash功能">Bash功能</a></li>
+        <li><a href="#输入输出重定向管道">输入输出重定向，管道</a></li>
+        <li><a href="#通配符的使用">通配符的使用</a></li>
+        <li><a href="#正则表达式和grep命令-e">正则表达式和grep命令(-E)</a></li>
+        <li><a href="#vim编辑器">Vim编辑器</a></li>
+      </ul>
+    </li>
+    <li><a href="#用户与组管理">用户与组管理</a>
+      <ul>
+        <li><a href="#root用户和管理员权限sudo">root用户和管理员权限（sudo）</a></li>
+        <li><a href="#配置文件etcpasswd">配置文件/etc/passwd</a></li>
+        <li><a href="#chpasswd">chpasswd</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件与目录管理">文件与目录管理</a>
+      <ul>
+        <li><a href="#linux目录结构">Linux目录结构</a></li>
+        <li><a href="#linux文件类型分类">Linux文件类型分类</a></li>
+        <li><a href="#statls--l">stat,ls -l</a></li>
+        <li><a href="#catmorelessheadtail">cat,more,less,head,tail</a></li>
+        <li><a href="#wc">wc</a></li>
+        <li><a href="#find-which">find, which</a></li>
+        <li><a href="#ln">ln</a></li>
+        <li><a href="#tar">tar</a></li>
+        <li><a href="#访问者身份和文件访问权限">访问者身份和文件访问权限</a></li>
+        <li><a href="#chown-chgrp">chown chgrp</a></li>
+        <li><a href="#chmod">chmod</a></li>
+      </ul>
+    </li>
+    <li><a href="#磁盘存储管理">磁盘存储管理</a>
+      <ul>
+        <li><a href="#磁盘分区的命名">磁盘分区的命名</a></li>
+        <li><a href="#文件系统的概念">文件系统的概念</a></li>
+        <li><a href="#fdisk--l">fdisk -l</a></li>
+        <li><a href="#mkfs--t">mkfs -t</a></li>
+        <li><a href="#mount">mount</a></li>
+        <li><a href="#umount">umount</a></li>
+        <li><a href="#sudo-file--s-devsda1">sudo file -s /dev/sda1</a></li>
+        <li><a href="#df--h">df -h</a></li>
+        <li><a href="#du--s--h">du -s -h</a></li>
+        <li><a href="#创建和使用文件系统的步骤">创建和使用文件系统的步骤</a></li>
+      </ul>
+    </li>
+    <li><a href="#软件包管理">软件包管理</a>
+      <ul>
+        <li><a href="#apt工具">APT工具</a></li>
+        <li><a href="#软件源的概念配置文件">软件源的概念,配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#系统高级管理">系统高级管理</a>
+      <ul>
+        <li><a href="#进程和服务的概念和分类">进程和服务的概念和分类</a></li>
+        <li><a href="#前台与后台">前台与后台</a></li>
+        <li><a href="#pid">pid</a></li>
+        <li><a href="#pstop">ps,top</a></li>
+        <li><a href="#进程的启动-挂起-恢复-结束">进程的启动 挂起 恢复 结束</a></li>
+        <li><a href="#service-systemctl">service, systemctl</a></li>
+        <li><a href="#crontab">crontab</a></li>
+        <li><a href="#日志系统">日志系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#shell编程">Shell编程</a>
+      <ul>
+        <li><a href="#创建和执行shell程序">创建和执行Shell程序</a></li>
+        <li><a href="#设置和查看环境变量">设置和查看环境变量</a></li>
+        <li><a href="#path环境变量">PATH环境变量</a></li>
+        <li><a href="#shell变量">Shell变量</a></li>
+        <li><a href="#shell内部变量01n以及">Shell内部变量（$0、$1、…、$n，以及$#、$*、$@、$?）</a></li>
+        <li><a href="#shell数组">Shell数组</a></li>
+        <li><a href="#shell表达式和运算符">Shell表达式和运算符</a></li>
+        <li><a href="#shell-逻辑表达式">Shell 逻辑表达式</a></li>
+        <li><a href="#流程控制语句if-casefor-while-until">流程控制语句（if, case，for, while, until）</a></li>
+        <li><a href="#shell函数">Shell函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#网络管理">网络管理</a>
+      <ul>
+        <li><a href="#网络接口概念">网络接口概念</a></li>
+        <li><a href="#查看和设置网络接口ifconfig">查看和设置网络接口（ifconfig）</a>
+          <ul>
+            <li><a href="#网络相关的配置文件">网络相关的配置文件</a></li>
+          </ul>
+        </li>
+        <li><a href="#ping">ping</a></li>
+        <li><a href="#netstat">netstat</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>初步重点</p>
+<h1 id="shell基本用法">Shell基本用法</h1>
+<h2 id="基本操作命令">基本操作命令</h2>
+<p>pwd, ls(-a,-l,-d), cd, mkdir, touch, echo, man, cp, mv, rm(-r,-f)</p>
+<ul>
+<li>
+<p><code>ls</code>: 列出目录中的文件和子目录。可以通过参数（如 <code>-a</code>、<code>-l</code>、<code>-d</code>）来改变其行为。</p>
+</li>
+<li>
+<p><code>man</code>: 显示命令的手册页。例如，<code>man ls</code> 将显示 <code>ls</code> 命令的手册页。</p>
+</li>
+<li>
+<p><code>cp</code>: 复制文件或目录。例如，<code>cp source_file destination_file</code> 将复制 <code>source_file</code> 到 <code>destination_file</code>。</p>
+</li>
+<li>
+<p><code>rm</code>: 删除文件或目录。例如，<code>rm file_name</code> 将删除名为 <code>file_name</code> 的文件。通过参数 <code>-r</code> 或 <code>-f</code> 可以递归删除目录或强制删除文件。</p>
+</li>
+</ul>
+<h2 id="shell中的特殊字符的作用">Shell中的特殊字符的作用</h2>
+<p>单引号，双引号，反引号, $</p>
+<ul>
+<li>单引号 (<code>'</code>)：关闭变量扩展，不会对变量进行替换。</li>
+<li>双引号 (<code>&quot;</code>)：允许变量扩展和命令替换。</li>
+<li>反引号 (``) ：用于命令替换，Shell 会先执行其中的命令，并将输出作为结果返回。</li>
+</ul>
+<h2 id="bash功能">Bash功能</h2>
+<ul>
+<li>自动补全功能 <code>&lt;Tab&gt;</code> ：当在命令行中输入部分命令后按 <code>&lt;Tab&gt;</code> 键时，Bash 会尝试自动补全命令或文件名。</li>
+<li>查看和执行历史命令：使用上下箭头键可以浏览之前执行过的命令，并使用 <code>!!</code> 可以执行上一个命令</li>
+<li>别名：允许用户为常用命令设置别名（alias）</li>
+</ul>
+<h2 id="输入输出重定向管道">输入输出重定向，管道</h2>
+<ul>
+<li>重定向输出到文件：使用 <code>&gt;</code> 将输出重定向到文件，如果文件不存在则创建文件；使用 <code>&gt;&gt;</code> 将输出追加到文件末尾。</li>
+<li>重定向输入从文件：使用 <code>&lt;</code> 将输入从文件中读取。</li>
+<li>管道 (<code>|</code>)：将一个命令的输出作为另一个命令的输入，常用于连接多个命令以实现复杂操作。</li>
+</ul>
+<h2 id="通配符的使用">通配符的使用</h2>
+<ul>
+<li><code>*</code>: 匹配任何字符序列（包括没有字符）。</li>
+<li><code>?</code>: 匹配单个字符。这些通配符常用于文件名匹配和过滤操作中。</li>
+</ul>
+<h2 id="正则表达式和grep命令-e">正则表达式和grep命令(-E)</h2>
+<h2 id="vim编辑器">Vim编辑器</h2>
+<h1 id="用户与组管理">用户与组管理</h1>
+<h2 id="root用户和管理员权限sudo">root用户和管理员权限（sudo）</h2>
+<ul>
+<li>root用户：root用户是系统中的超级用户，拥有最高权限，可以执行任何操作。</li>
+<li>sudo权限：允许普通用户通过sudo命令执行一些需要管理员权限的操作，但不需要切换到root用户。</li>
+</ul>
+<h2 id="配置文件etcpasswd">配置文件/etc/passwd</h2>
+<ul>
+<li><code>/etc/passwd</code>: 存储用户账户信息的文件。</li>
+<li><code>/etc/shadow</code>: 存储加密的用户密码信息的文件。</li>
+<li><code>/etc/group</code>: 存储组信息的文件。</li>
+</ul>
+<h2 id="chpasswd">chpasswd</h2>
+<ul>
+<li>
+<p><code>useradd</code>: 用于添加新用户的命令。参数：-g（指定主要组）、-m（创建家目录）、-s（指定登录Shell）。</p>
+</li>
+<li>
+<p><code>chpasswd</code>: 用于批量为用户设置密码的命令。</p>
+</li>
+<li>
+<p><code>usermod</code>: 用于修改用户信息的命令，参数：-s（指定登录Shell）。</p>
+</li>
+</ul>
+<h1 id="文件与目录管理">文件与目录管理</h1>
+<h2 id="linux目录结构">Linux目录结构</h2>
+<ul>
+<li>
+<p>根目录 <code>/</code>：Linux文件系统的起点。</p>
+</li>
+<li>
+<p><code>/etc</code>: 包含系统管理所需要的配置文件和子目录。</p>
+</li>
+<li>
+<p><code>/var</code>: 用于存储系统运行日志、邮件等动态数据。</p>
+</li>
+<li>
+<p><code>/home</code>: 用户的主目录，每个用户都有自己的目录。</p>
+</li>
+</ul>
+<h2 id="linux文件类型分类">Linux文件类型分类</h2>
+<ul>
+<li>普通文件：存储数据的文件。</li>
+<li>目录文件：包含其他文件和目录的目录。</li>
+<li>链接文件：指向另一个文件或目录的链接。</li>
+<li>设备文件：代表系统中的设备，如硬盘、终端等。</li>
+</ul>
+<h2 id="statls--l">stat,ls -l</h2>
+<ul>
+<li>
+<p><code>stat</code>: 显示文件的详细信息，包括inode信息。</p>
+</li>
+<li>
+<p><code>ls -l</code>: 显示文件的详细信息，包括文件类型、权限、所有者等。</p>
+</li>
+</ul>
+<h2 id="catmorelessheadtail">cat,more,less,head,tail</h2>
+<ul>
+<li><code>cat</code>: 显示文件内容。</li>
+<li><code>more</code> 和 <code>less</code>: 分页显示文件内容。</li>
+<li><code>head</code> 和 <code>tail</code>: 显示文件的前几行或后几行内容。</li>
+</ul>
+<h2 id="wc">wc</h2>
+<ul>
+<li><code>wc</code>: 统计文件的行数、字数和字节数。</li>
+</ul>
+<h2 id="find-which">find, which</h2>
+<ul>
+<li><code>find</code>: 在指定目录下查找文件或目录。</li>
+<li><code>which</code>: 查找并显示可执行文件的路径。</li>
+</ul>
+<h2 id="ln">ln</h2>
+<ul>
+<li><code>ln</code>: 创建链接文件，包括硬链接和符号链接（软链接）。</li>
+</ul>
+<h2 id="tar">tar</h2>
+<ul>
+<li><code>tar</code> 命令：用于打包和解包文件，可以与 <code>gzip</code> 或 <code>bzip2</code> 结合使用进行压缩或解压缩。选项：<code>-z</code> 使用gzip压缩或解压，<code>-c</code> 创建新的压缩文件，<code>-v</code> 显示详细信息，<code>-f</code> 指定压缩文件名，<code>-x</code> 解压缩。</li>
+</ul>
+<h2 id="访问者身份和文件访问权限">访问者身份和文件访问权限</h2>
+<ul>
+<li>访问者身份：用户（u）、组（g）、其他（o）。</li>
+<li>访问权限：读（r）、写（w）、执行（x）。</li>
+<li>字母表示法：例如，<code>-rwxr-xr--</code> 表示用户有读、写、执行权限，组和其他用户有读和执行权限。</li>
+<li>数字表示法：例如，<code>755</code> 表示用户有读、写、执行权限（7），组和其他用户有读和执行权限（5）。</li>
+</ul>
+<h2 id="chown-chgrp">chown chgrp</h2>
+<ul>
+<li><code>chown</code>: 改变文件或目录的所有者。例如，<code>chown newuser filename</code> 将 <code>filename</code> 的所有者更改为 <code>newuser</code>。</li>
+<li><code>chgrp</code>: 改变文件或目录的组。例如，<code>chgrp newgroup filename</code> 将 <code>filename</code> 的组更改为 <code>newgroup</code>。</li>
+</ul>
+<h2 id="chmod">chmod</h2>
+<ul>
+<li><code>chmod</code>: 用于设置文件或目录的访问权限。例如，<code>chmod 755 filename</code> 将 <code>filename</code> 的权限设置为 <code>rwxr-xr-x</code>（即用户有读、写、执行权限，组和其他用户有读和执行权限）。</li>
+</ul>
+<h1 id="磁盘存储管理">磁盘存储管理</h1>
+<h2 id="磁盘分区的命名">磁盘分区的命名</h2>
+<ul>
+<li>概念：将一个物理磁盘划分为多个逻辑部分，每个部分可以独立进行文件系统格式化。</li>
+<li>分区的命名：例如 <code>/dev/sda1</code> 表示第一个物理磁盘的第一个分区。</li>
+<li>Linux分区的类型：Linux分区和Linux Swap分区。</li>
+</ul>
+<h2 id="文件系统的概念">文件系统的概念</h2>
+<ul>
+<li>概念：文件系统是用于存储和组织数据的机制，它定义了如何存储、检索和管理数据。</li>
+<li>分类：ext4、ext3、FAT32等。</li>
+</ul>
+<h2 id="fdisk--l">fdisk -l</h2>
+<ul>
+<li><code>fdisk -l</code>: 查看磁盘分区情况。</li>
+<li><code>fdisk /dev/sda</code>: 对磁盘 <code>/dev/sda</code> 进行分区操作。</li>
+</ul>
+<h2 id="mkfs--t">mkfs -t</h2>
+<ul>
+<li><code>mkfs -t</code>: 根据指定的文件系统类型格式化分区。例如，<code>mkfs -t ext4 /dev/sda1</code> 将在 <code>/dev/sda1</code> 上创建一个ext4文件系统。</li>
+</ul>
+<h2 id="mount">mount</h2>
+<ul>
+<li><code>mount</code>: 将文件系统挂载到目录上，使其可以访问。例如，<code>mount /dev/sda1 /mnt/mydisk</code> 将 <code>/dev/sda1</code> 挂载到 <code>/mnt/mydisk</code>。</li>
+</ul>
+<h2 id="umount">umount</h2>
+<ul>
+<li><code>umount</code>: 卸载已挂载的文件系统。例如，<code>umount /mnt/mydisk</code> 将卸载 <code>/mnt/mydisk</code> 上的文件系统。</li>
+</ul>
+<h2 id="sudo-file--s-devsda1">sudo file -s /dev/sda1</h2>
+<ul>
+<li><code>sudo file -s /dev/sda1</code>: 显示 <code>/dev/sda1</code> 上的文件系统类型和块大小。</li>
+</ul>
+<h2 id="df--h">df -h</h2>
+<ul>
+<li><code>df -h</code>: 以人类可读的方式显示磁盘空间使用情况。</li>
+</ul>
+<h2 id="du--s--h">du -s -h</h2>
+<ul>
+<li>
+<p><code>du -s -h</code>: 显示目录的总磁盘使用情况。</p>
+</li>
+<li>
+<p><code>du</code> 与 <code>ls</code> 查看文件大小的区别：<code>ls</code> 仅显示目录中的文件大小，而 <code>du</code> 显示目录及其子目录的磁盘占用情况。</p>
+</li>
+</ul>
+<h2 id="创建和使用文件系统的步骤">创建和使用文件系统的步骤</h2>
+<ul>
+<li>分区：使用 <code>fdisk</code> 或其他工具进行分区。</li>
+<li>格式化：使用 <code>mkfs</code> 命令创建文件系统。</li>
+<li>挂载：使用 <code>mount</code> 将文件系统挂载到目录上。</li>
+<li>使用：通过挂载点访问文件系统中的数据。</li>
+<li>卸载：不再需要访问时，使用 <code>umount</code> 卸载文件系统。</li>
+</ul>
+<h1 id="软件包管理">软件包管理</h1>
+<h2 id="apt工具">APT工具</h2>
+<ul>
+<li><code>apt</code>: 基于Debian的系统中更现代化的图形界面工具。</li>
+<li>更新列表：<code>sudo apt update</code></li>
+<li>升级：<code>sudo apt upgrade</code></li>
+<li>安装：<code>sudo apt install 软件包名</code></li>
+<li>删除：<code>sudo apt remove 软件包名</code></li>
+</ul>
+<h2 id="软件源的概念配置文件">软件源的概念,配置文件</h2>
+<ul>
+<li>软件源：定义了可用的软件包的来源，通常配置在 <code>/etc/apt/sources.list</code> 或 <code>/etc/apt/sources.list.d/</code> 目录下的文件中。</li>
+</ul>
+<h1 id="系统高级管理">系统高级管理</h1>
+<h2 id="进程和服务的概念和分类">进程和服务的概念和分类</h2>
+<ul>
+<li>进程：程序在运行时的一个实例。</li>
+<li>服务：后台运行的进程，通常用于启动和管理其他进程。</li>
+<li>交互进程：与人机交互的进程，例如文本编辑器或命令行界面。</li>
+<li>守护进程：在后台运行的进程，没有用户界面。</li>
+</ul>
+<h2 id="前台与后台">前台与后台</h2>
+<ul>
+<li>前台：用户当前正在与其实时交互的进程。</li>
+<li>后台：用户未与其交互的进程，通常在后台运行。</li>
+</ul>
+<h2 id="pid">pid</h2>
+<ul>
+<li>PID（进程ID）：每个进程都有一个唯一的ID。</li>
+</ul>
+<h2 id="pstop">ps,top</h2>
+<ul>
+<li><code>ps</code>: 显示当前进程的状态。</li>
+<li><code>top</code>: 实时显示系统状态和运行中的进程。</li>
+</ul>
+<h2 id="进程的启动-挂起-恢复-结束">进程的启动 挂起 恢复 结束</h2>
+<ul>
+<li>前台启动：直接运行程序。</li>
+<li>后台启动：使用 <code>&amp;</code> 符号在命令末尾，例如 <code>nohup 程序名 &amp;</code>。</li>
+<li>挂起：使用 <code>ctrl+z</code> 键挂起当前前台进程。</li>
+<li>恢复：使用 <code>fg</code> 命令将挂起的进程移回前台，或使用 <code>bg</code> 命令将进程移到后台。</li>
+<li>结束：使用 <code>kill</code> 命令发送信号给进程以结束它。</li>
+</ul>
+<h2 id="service-systemctl">service, systemctl</h2>
+<ul>
+<li>服务启动脚本：定义如何启动、停止和重启服务的脚本文件。</li>
+<li><code>service</code>: 使用传统的init脚本管理服务。</li>
+<li><code>systemctl</code>: 使用systemd工具管理服务和其他系统资源。启动、停止、查看状态、重启服务。</li>
+</ul>
+<h2 id="crontab">crontab</h2>
+<ul>
+<li><code>crontab</code>: 用于定期执行任务的工具。</li>
+<li><code>at</code>: 在指定的时间执行一次性任务。</li>
+</ul>
+<h2 id="日志系统">日志系统</h2>
+<ul>
+<li>
+<p>日志文件的位置：例如 <code>/var/log/</code> 目录存储了大多数系统日志文件。</p>
+</li>
+<li>
+<p>查看日志：使用 <code>cat</code>, <code>tail</code>, <code>less</code> 等命令查看日志文件内容。</p>
+</li>
+</ul>
+<h1 id="shell编程">Shell编程</h1>
+<h2 id="创建和执行shell程序">创建和执行Shell程序</h2>
+<ul>
+<li>使用文本编辑器创建脚本文件，例如 <code>myscript.sh</code>。</li>
+<li>在文件开头添加 <code>#!/bin/bash</code>（或其他shell的路径）作为shebang。</li>
+<li>赋予脚本执行权限：<code>chmod +x myscript.sh</code>。</li>
+<li>执行脚本：<code>./myscript.sh</code>。</li>
+</ul>
+<h2 id="设置和查看环境变量">设置和查看环境变量</h2>
+<ul>
+<li><code>export</code> 命令用于设置环境变量，例如 <code>export MY_VAR=&quot;Hello&quot;</code>。</li>
+<li>临时环境变量在当前shell会话中有效，关闭会话后失效。</li>
+<li>永久环境变量可以添加到 <code>/etc/profile</code> 或 <code>~/.bashrc</code> 等配置文件中。</li>
+</ul>
+<h2 id="path环境变量">PATH环境变量</h2>
+<ul>
+<li><code>PATH</code> 环境变量指定了系统搜索可执行文件的目录列表。</li>
+<li>可以使用 <code>echo $PATH</code> 查看当前的 <code>PATH</code> 设置。</li>
+</ul>
+<h2 id="shell变量">Shell变量</h2>
+<ul>
+<li>变量名通常以字母或下划线开头，后跟字母、数字或下划线。</li>
+<li>变量赋值使用等号（无空格），例如 <code>VAR_NAME=&quot;value&quot;</code>。</li>
+<li>使用 <code>$VAR_NAME</code> 或 <code>${VAR_NAME}</code> 进行变量替换。</li>
+</ul>
+<h2 id="shell内部变量01n以及">Shell内部变量（$0、$1、…、$n，以及$#、$*、$@、$?）</h2>
+<ul>
+<li><code>$0</code>：当前脚本的文件名。</li>
+<li><code>$1</code>, <code>$2</code>, …, <code>$n</code>：脚本的第1到n个参数。</li>
+<li><code>$#</code>：传递给脚本的参数个数。</li>
+<li><code>$*</code>：以单个字符串显示所有传递给脚本的参数。</li>
+<li><code>$@</code>：与 <code>$*</code> 类似，但每个参数都是独立的字符串。第九章：网络管理</li>
+<li><code>$?</code>：上一个命令的退出状态（0表示成功，非0表示失败）。</li>
+</ul>
+<h2 id="shell数组">Shell数组</h2>
+<ul>
+<li>定义数组：<code>ARRAY_NAME=(&quot;value1&quot; &quot;value2&quot; &quot;value3&quot;)</code>。</li>
+<li>访问数组元素：<code>${ARRAY_NAME[index]}</code>。</li>
+</ul>
+<h2 id="shell表达式和运算符">Shell表达式和运算符</h2>
+<ul>
+<li>算术表达式使用 <code>expr</code> 命令或 <code>$(())</code> 语法进行计算。</li>
+<li>比较运算符用于比较两个值，例如 <code>-eq</code>（等于）、<code>-ne</code>（不等于）、<code>-gt</code>（大于）等。</li>
+</ul>
+<h2 id="shell-逻辑表达式">Shell 逻辑表达式</h2>
+<ul>
+<li>使用逻辑运算符 <code>&amp;&amp;</code>（与）、<code>||</code>（或）和 <code>!</code>（非）组合条件表达式。</li>
+</ul>
+<h2 id="流程控制语句if-casefor-while-until">流程控制语句（if, case，for, while, until）</h2>
+<ul>
+<li><code>if [ condition ]; then ... fi</code>：如果条件为真，执行相应代码块。</li>
+<li><code>case &quot;$variable&quot; in ... esac</code>：根据变量的值执行不同的代码块。</li>
+<li><code>for variable in list; do ... done</code>：遍历列表中的每个元素并执行代码块。</li>
+<li><code>while [ condition ]; do ... done</code>：当条件为真时，重复执行代码块。</li>
+<li><code>until [ condition ]; do ... done</code>：当条件为假时，重复执行代码块。</li>
+</ul>
+<h2 id="shell函数">Shell函数</h2>
+<p>定义函数使用 <code>function_name() { ... }</code> 语法。</p>
+<p>调用函数使用函数名后跟参数，例如 <code>function_name arg1 arg2</code>。</p>
+<h1 id="网络管理">网络管理</h1>
+<h2 id="网络接口概念">网络接口概念</h2>
+<ul>
+<li>网络接口是计算机与网络的连接点，用于数据的发送和接收。</li>
+<li>常见的网络接口有以太网接口、Wi-Fi接口等。</li>
+</ul>
+<h2 id="查看和设置网络接口ifconfig">查看和设置网络接口（ifconfig）</h2>
+<ul>
+<li>可以使用<code>ifconfig</code>命令显示当前网络接口的状态、IP地址等信息，并通过参数设置接口的配置。</li>
+</ul>
+<h3 id="网络相关的配置文件">网络相关的配置文件</h3>
+<ul>
+<li><code>/etc/hostname</code>：存储主机名。</li>
+<li><code>/etc/hosts</code>：存储静态主机名到IP地址的映射。</li>
+<li><code>/etc/netplan/01-network-manager-all.yaml</code>：存储网络接口的配置信息。</li>
+</ul>
+<h2 id="ping">ping</h2>
+<ul>
+<li><code>ping</code>命令用于测试与远程主机的网络连通性。</li>
+<li>通过发送ICMP回显请求并等待响应，可以确定主机是否可达以及网络延迟情况。</li>
+</ul>
+<h2 id="netstat">netstat</h2>
+<ul>
+<li><code>netstat</code>命令用于显示网络连接、路由表、接口统计等网络状态信息。可以通过参数来查看特定的连接状态、监听端口等。</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/" data-title="linux期末速通" data-via="xxxx" data-hashtags="linux"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/" data-hashtag="linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/" data-title="linux期末速通"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/" data-title="linux期末速通"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/" data-title="linux期末速通"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/featureconfig/hogo%E4%B8%BB%E9%A2%98loveit%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/" class="prev" rel="prev" title="Hogo主题LoveIt配置问题"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Hogo主题LoveIt配置问题</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">????</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

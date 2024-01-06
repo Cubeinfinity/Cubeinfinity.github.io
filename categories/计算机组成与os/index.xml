@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>计算机组成与OS - Category - CubeInfinity</title>
+        <link>http://example.org/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/</link>
+        <description>计算机组成与OS - Category - CubeInfinity</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 06 Jan 2024 23:30:00 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/" rel="self" type="application/rss+xml" /><item>
+    <title>linux期末速通</title>
+    <link>http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/</link>
+    <pubDate>Sat, 06 Jan 2024 23:30:00 &#43;0800</pubDate>
+    <author>cube0210</author>
+    <guid>http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/</guid>
+    <description><![CDATA[<p>初步重点</p>]]></description>
+</item>
+</channel>
+</rss>

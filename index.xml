@@ -3,9 +3,17 @@
         <title>CubeInfinity</title>
         <link>http://example.org/</link>
         <description>welcome to CUBE</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 06 Jan 2024 16:30:00 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 06 Jan 2024 23:30:00 &#43;0800</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>linux期末速通</title>
+    <link>http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/</link>
+    <pubDate>Sat, 06 Jan 2024 23:30:00 &#43;0800</pubDate>
+    <author>cube0210</author>
+    <guid>http://example.org/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8Eos/linux%E6%9C%9F%E6%9C%AB%E9%80%9F%E9%80%9A/</guid>
+    <description><![CDATA[<p>初步重点</p>]]></description>
+</item>
+<item>
     <title>Hogo主题LoveIt配置问题</title>
     <link>http://example.org/posts/featureconfig/hogo%E4%B8%BB%E9%A2%98loveit%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/</link>
     <pubDate>Sat, 06 Jan 2024 16:30:00 &#43;0800</pubDate>
