@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE\/"
-        },"genre": "posts","wordcount":  3637 ,
+        },"genre": "posts","keywords": "hadoop","wordcount":  3637 ,
         "url": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE\/","datePublished": "2024-01-03T00:00:00+08:00","dateModified": "2024-01-03T00:00:00+08:00","publisher": {
             "@type": "Organization",
             "name": "","logo": "http:\/\/example.org\/image\/avatar.png"},"author": {
@@ -222,7 +222,7 @@
 </li>
 </ul>
 <p>为了更好地利用图形化界面配置文件，安装一个vscode：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo snap install --classic code
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo snap install --classic code
 </span></span></code></pre></div><h2 id="11-hadoopenvsh">1.1 hadoop.env.sh</h2>
 <ul>
 <li>
@@ -233,9 +233,9 @@
 </li>
 <li>
 <p>在hadoop-env.sh下配置</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>export JAVA_HOME<span style="color:#f92672">=</span>/usr/java
-</span></span><span style="display:flex;"><span>export HADOOP_PID_DIR<span style="color:#f92672">=</span>/home/hadoop/hadoopData/HADOOP_LOG_DIR
-</span></span><span style="display:flex;"><span>export HADOOP_LOG_DIR<span style="color:#f92672">=</span>/home/hadoop/hadoopData/HADOOP_PID_DIR
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/java
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_PID_DIR</span><span class="o">=</span>/home/hadoop/hadoopData/HADOOP_LOG_DIR
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_LOG_DIR</span><span class="o">=</span>/home/hadoop/hadoopData/HADOOP_PID_DIR
 </span></span></code></pre></div><p>（此图是之前用户还是bigdata3的时候截的，不用在意，按照上方路径即可。）</p>
 <p><img
         class="lazyload"
@@ -259,22 +259,22 @@
 <p>io.file.buffer.size，默认4096（也可以，就是慢了点）。</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;configuration&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>fs.defaultFS<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>hdfs://master:9000/<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>io.file.buffer.size<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>131072<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/configuration&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>hdfs://master:9000/<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>io.file.buffer.size<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>131072<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/configuration&gt;</span>
 </span></span></code></pre></div><p>在之后的配置内容中还有新设置（解释见下章）：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>hadoop.tmp.dir<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>/home/hadoop/hadoopData<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span>A base for other temporary directories.<span style="color:#f92672">&lt;/description&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>/home/hadoop/hadoopData<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;description&gt;</span>A base for other temporary directories.<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
 </span></span></code></pre></div><h2 id="13-hdfs-sitexml">1.3 hdfs-site.xml</h2>
 <p><strong>hdfs-site.xml当前不修改</strong></p>
 <p>（注意<code>&lt;configuration&gt;&lt;/configuration&gt;</code>别一不小心删掉了！）</p>
@@ -294,42 +294,42 @@
 <p>dfs.namenode.name.dir和dfs.datanode.data.dir的默认设置如下：</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.name.dir<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/name<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span>Determines where on the local filesystem the DFS name node
-</span></span><span style="display:flex;"><span>      should store the name table(fsimage).  If this is a comma-delimited list
-</span></span><span style="display:flex;"><span>      of directories then the name table is replicated in all of the
-</span></span><span style="display:flex;"><span>      directories, for redundancy. <span style="color:#f92672">&lt;/description&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>dfs.datanode.data.dir<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/data<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span>Determines where on the local filesystem an DFS data node
-</span></span><span style="display:flex;"><span>  should store its blocks.  If this is a comma-delimited
-</span></span><span style="display:flex;"><span>  list of directories, then data will be stored in all named
-</span></span><span style="display:flex;"><span>  directories, typically on different devices. The directories should be tagged
-</span></span><span style="display:flex;"><span>  with corresponding storage types (<sup>SSD</sup>/<sub>DISK</sub>/<sup>ARCHIVE</sup>/<sub>RAM_DISK</sub>) for HDFS
-</span></span><span style="display:flex;"><span>  storage policies. The default storage type will be DISK if the directory does
-</span></span><span style="display:flex;"><span>  not have a storage type tagged explicitly. Directories that do not exist will
-</span></span><span style="display:flex;"><span>  be created if local filesystem permission allows.
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/description&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>dfs.namenode.name.dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/name<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;description&gt;</span>Determines where on the local filesystem the DFS name node
+</span></span><span class="line"><span class="cl">      should store the name table(fsimage).  If this is a comma-delimited list
+</span></span><span class="line"><span class="cl">      of directories then the name table is replicated in all of the
+</span></span><span class="line"><span class="cl">      directories, for redundancy. <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>dfs.datanode.data.dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/data<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;description&gt;</span>Determines where on the local filesystem an DFS data node
+</span></span><span class="line"><span class="cl">  should store its blocks.  If this is a comma-delimited
+</span></span><span class="line"><span class="cl">  list of directories, then data will be stored in all named
+</span></span><span class="line"><span class="cl">  directories, typically on different devices. The directories should be tagged
+</span></span><span class="line"><span class="cl">  with corresponding storage types (<sup>SSD</sup>/<sub>DISK</sub>/<sup>ARCHIVE</sup>/<sub>RAM_DISK</sub>) for HDFS
+</span></span><span class="line"><span class="cl">  storage policies. The default storage type will be DISK if the directory does
+</span></span><span class="line"><span class="cl">  not have a storage type tagged explicitly. Directories that do not exist will
+</span></span><span class="line"><span class="cl">  be created if local filesystem permission allows.
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
 </span></span></code></pre></div><p>都指向了变量：{hadoop.tmp.dir}，</p>
 <ul>
 <li>搜索此变量设置位置：默认值在core-default.xml中设置</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>hadoop.tmp.dir<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>/tmp/hadoop-${user.name}<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span>A base for other temporary directories.<span style="color:#f92672">&lt;/description&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>/tmp/hadoop-${user.name}<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;description&gt;</span>A base for other temporary directories.<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
 </span></span></code></pre></div><p>因此在 core-site.xml中修改hadoop.tmp.dir的值，把它指向自己新建的文件夹中，就不必分开修改两处(不同)的配置了。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>hadoop.tmp.dir<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>/home/bigdata3/HADOOP/hadoopData<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span>A base for other temporary directories.<span style="color:#f92672">&lt;/description&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>/home/bigdata3/HADOOP/hadoopData<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;description&gt;</span>A base for other temporary directories.<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
 </span></span></code></pre></div><ul>
 <li>dfs.blocksize的默认设置，128M，足够，不再进行设置</li>
 <li>dfs.namenode.handler.count默认嵌套深度，10，做实验足够，不修改</li>
@@ -406,13 +406,13 @@
         title="image-20231231202916480" /></p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>mapreduce.framework.name<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>yarn<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span>The runtime framework for executing MapReduce jobs.
-</span></span><span style="display:flex;"><span>  Can be one of local, classic or yarn.
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/description&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>mapreduce.framework.name<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>yarn<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;description&gt;</span>The runtime framework for executing MapReduce jobs.
+</span></span><span class="line"><span class="cl">  Can be one of local, classic or yarn.
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
 </span></span></code></pre></div><ul>
 <li>mapreduce.jobhistory.intermediate-done-dir的默认值是：</li>
 </ul>
@@ -442,12 +442,12 @@
         alt="/asserts/bigdata/image-20231205150900031.png"
         title="image-20231205150900031" /></p>
 <p>将其指向自己设定的目录（新建一个目录）：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;property&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;name&gt;</span>yarn.app.mapreduce.am.staging-dir<span style="color:#f92672">&lt;/name&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;value&gt;</span>/home/hadoop/hadoopData/staging<span style="color:#f92672">&lt;/value&gt;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;description&gt;</span>The staging dir used while submitting jobs.
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/description&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/property&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>yarn.app.mapreduce.am.staging-dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;value&gt;</span>/home/hadoop/hadoopData/staging<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;description&gt;</span>The staging dir used while submitting jobs.
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
 </span></span></code></pre></div><ul>
 <li>因此通过修改yarn.app.mapreduce.am.staging-dir达到了同时修改 mapreduce.jobhistory.intermediate-done-dir 、mapreduce.jobhistory.done-dir 的目的。</li>
 </ul>
@@ -455,8 +455,8 @@
 <p>将datanode节点写入此文件。</p>
 <p>*一行一个。</p>
 <p>workers</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>slave0
-</span></span><span style="display:flex;"><span>slave1
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">slave0
+</span></span><span class="line"><span class="cl">slave1
 </span></span></code></pre></div><p>配置结束</p>
 <h2 id="17-分发脚本">1.7 分发脚本</h2>
 <ul>
@@ -468,20 +468,20 @@
 </li>
 <li>
 <p>加权限使其可执行：<code>chmod +x localDistri.sh</code>  (注意 这里因为hadoop文件夹是在系统中，故需要sudo提权，老师的案例是不需要的)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo Distribution to local nodes
-</span></span><span style="display:flex;"><span>sudo cp config/* /usr/hadoop/etc/hadoop
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> Distribution to <span class="nb">local</span> nodes
+</span></span><span class="line"><span class="cl">sudo cp config/* /usr/hadoop/etc/hadoop
 </span></span></code></pre></div></li>
 <li>
 <p>allNodeDistri.sh</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo Distribution configuration to all host
-</span></span><span style="display:flex;"><span>sudo cp config/* /usr/hadoop/etc/hadoop
-</span></span><span style="display:flex;"><span>scp slave0:config/* /usr/hadoop/etc/hadoop
-</span></span><span style="display:flex;"><span>scp slave1:config/* /usr/hadoop/etc/hadoop
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> Distribution configuration to all host
+</span></span><span class="line"><span class="cl">sudo cp config/* /usr/hadoop/etc/hadoop
+</span></span><span class="line"><span class="cl">scp slave0:config/* /usr/hadoop/etc/hadoop
+</span></span><span class="line"><span class="cl">scp slave1:config/* /usr/hadoop/etc/hadoop
 </span></span></code></pre></div><p>或（以下是老师的路径，个人路径自己调整）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo Distribution configuration to all host
-</span></span><span style="display:flex;"><span>scp /home/bigdata3/hadoopConfig/config/*  master:/home/bigdata3/software/hadoop-3.3.6/etc/hadoop
-</span></span><span style="display:flex;"><span>scp /home/bigdata3/hadoopConfig/config/*  slave0:/home/bigdata3/software/hadoop-3.3.6/etc/hadoop
-</span></span><span style="display:flex;"><span>scp /home/bigdata3/hadoopConfig/config/*  slave1:/home/bigdata3/software/hadoop-3.3.6/etc/hadoop
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> Distribution configuration to all host
+</span></span><span class="line"><span class="cl">scp /home/bigdata3/hadoopConfig/config/*  master:/home/bigdata3/software/hadoop-3.3.6/etc/hadoop
+</span></span><span class="line"><span class="cl">scp /home/bigdata3/hadoopConfig/config/*  slave0:/home/bigdata3/software/hadoop-3.3.6/etc/hadoop
+</span></span><span class="line"><span class="cl">scp /home/bigdata3/hadoopConfig/config/*  slave1:/home/bigdata3/software/hadoop-3.3.6/etc/hadoop
 </span></span></code></pre></div></li>
 </ul>
 <h1 id="2-集群启动">2 集群启动</h1>
@@ -502,7 +502,7 @@
 <p>集群第一次启动时，会在所有节点上建立hdfs文件系统，效果是可以在所有节点上看到数据目录建立起来。</p>
 <p>namenode第一次格式化后，<strong>不能再次进行格式化</strong>，否则会进入数据保护模式（安全模式）。</p>
 <p>如果要进行第二次格式化，需要删除所有节点上的数据目录。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rm -rf hadoopData/
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rm -rf hadoopData/
 </span></span></code></pre></div><ul>
 <li>格式化</li>
 </ul>
@@ -558,7 +558,7 @@
 <ul>
 <li>上传一个文件(e.g. jdk)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -put jdk-8u351-linux-x64.tar.gz /
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -put jdk-8u351-linux-x64.tar.gz /
 </span></span></code></pre></div><p>*传到默认文件系统；</p>
 <p><img
         class="lazyload"
@@ -608,32 +608,32 @@
 </code></pre><h3 id="-put---copyfromlocal">-put  -copyFromLocal</h3>
 <p>从本地系统拷贝文件到hdfs：</p>
 <p>命令格式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -put <span style="color:#f92672">[</span>文件<span style="color:#f92672">]</span> hdfs的URI/路径/文件名
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -put <span class="o">[</span>文件<span class="o">]</span> hdfs的URI/路径/文件名
 </span></span></code></pre></div><p>同名上传可以省略文件名，e.g.:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -put aa.txt hdfs://172.21.2.6:9000/<span style="color:#e6db74">`</span>学号<span style="color:#e6db74">`</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -put aa.txt hdfs://172.21.2.6:9000/<span class="sb">`</span>学号<span class="sb">`</span>
 </span></span></code></pre></div><p>可以在web页面上观察一下是否正常。</p>
 <h3 id="-get--copytolocal">-get -copyToLocal</h3>
 <p>从hdfs拷贝文件到本地</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -get <span style="color:#f92672">[</span>文件<span style="color:#f92672">]</span> hdfs的URI/路径/文件名 本地路径/文件名
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -get <span class="o">[</span>文件<span class="o">]</span> hdfs的URI/路径/文件名 本地路径/文件名
 </span></span></code></pre></div><p>同名可以省略本地路径上的文件名 e.g.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -get hdfs://172.21.2.6:9000/2021123456/aa.txt ~/bb.txt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -get hdfs://172.21.2.6:9000/2021123456/aa.txt ~/bb.txt
 </span></span></code></pre></div><h3 id="-cat">-cat</h3>
 <p>显示hdfs文件内容。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -cat hdfs的URI/路径/文件名
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -cat hdfs的URI/路径/文件名
 </span></span></code></pre></div><h3 id="-appendtofile">-appendToFile</h3>
 <p>向hdfs文件增加内容。但需要调整节点数。namenode新建目录，datanode存文件 e.g.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -appendToFile aa.txt hdfs://172.21.2.6:9000/<span style="color:#e6db74">`</span>学号<span style="color:#e6db74">`</span>/aa.txt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -appendToFile aa.txt hdfs://172.21.2.6:9000/<span class="sb">`</span>学号<span class="sb">`</span>/aa.txt
 </span></span></code></pre></div><h3 id="-cp">-cp</h3>
 <p>在hdfs中进行文件或目录拷贝。</p>
 <h3 id="-movefromlocal--movetolocal--mv">-moveFromLocal, -moveToLocal, -mv</h3>
 <p>文件移动</p>
 <h3 id="-rm">-rm</h3>
 <p>删除文件和目录。如果误删除了能恢复吗？</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -rm /b.txt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -rm /b.txt
 </span></span></code></pre></div><h3 id="-rmdir">-rmdir</h3>
 <p>删除目录（要求是空目录）e.g.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop fs -rmdir /012345678  失败，目录非空
-</span></span><span style="display:flex;"><span>hadoop fs -rm -rf /012345678   成功
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop fs -rmdir /012345678  失败，目录非空
+</span></span><span class="line"><span class="cl">hadoop fs -rm -rf /012345678   成功
 </span></span></code></pre></div><h3 id="-touch">-touch</h3>
 <p>创建一个文件；</p>
 <h2 id="32-hdfs文件对应本地文件">3.2 hdfs文件对应本地文件</h2>
@@ -641,7 +641,7 @@
 <p>……[此处应有图]</p>
 <p>进入相应节点，找到对应的Block id文件</p>
 <p>[不停进入一层层目录…… dingtalk_l8_55min 下回自查]</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cat blk_<span style="color:#e6db74">`</span>blk_id<span style="color:#e6db74">`</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cat blk_<span class="sb">`</span>blk_id<span class="sb">`</span>
 </span></span></code></pre></div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -651,13 +651,13 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置" data-via="xxxx" data-hashtags="hadoop"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-hashtag="hadoop"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l1hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" data-title="ch01 hadoop完全分布式集集群配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hadoop/">hadoop</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>

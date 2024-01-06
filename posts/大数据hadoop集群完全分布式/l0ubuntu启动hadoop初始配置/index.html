@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE\/"
-        },"genre": "posts","wordcount":  2240 ,
+        },"genre": "posts","keywords": "ubuntu, hadoop","wordcount":  2240 ,
         "url": "http:\/\/example.org\/posts\/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F\/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE\/","datePublished": "2024-01-03T00:00:00+08:00","dateModified": "2024-01-03T00:00:00+08:00","publisher": {
             "@type": "Organization",
             "name": "","logo": "http:\/\/example.org\/image\/avatar.png"},"author": {
@@ -319,12 +319,12 @@ attention
 <p>重启</p>
 <h2 id="12-安装初始软件">1.2 安装初始软件</h2>
 <p><strong>安装openssh-server</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install openssh-server
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install openssh-server
 </span></span></code></pre></div><p>中途按一下[y] 下同</p>
 <p><strong>安装vim编辑器</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install vim
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install vim
 </span></span></code></pre></div><p><strong>安装net-tools</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install net-tools
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install net-tools
 </span></span></code></pre></div><h2 id="13-配置静态网络">1.3 配置静态网络</h2>
 <p>默认：</p>
 <p><img
@@ -418,7 +418,7 @@ attention
 <p>共享文件夹属于root用户，当前用户权限不足</p>
 <p>解决方法是提升当前用户权限：</p>
 <p>将自己登录的用户，添加到vboxsf组中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG vboxsf <span style="color:#66d9ef">$(</span>whoami<span style="color:#66d9ef">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo usermod -aG vboxsf <span class="k">$(</span>whoami<span class="k">)</span>
 </span></span></code></pre></div><p>报错(不能用sudo)</p>
 <p><img
         class="lazyload"
@@ -563,7 +563,7 @@ attention
         alt="/asserts/bigdata/Pasted%20image%2020231221111348.png"
         title="Pasted image 20231221111348.png" /></p>
 <p>配置hadoop内部jdk路径</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi /usr/hadoop/etc/hadoop/hadoop-env.sh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vi /usr/hadoop/etc/hadoop/hadoop-env.sh
 </span></span></code></pre></div><p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -572,7 +572,7 @@ attention
         data-sizes="auto"
         alt="/asserts/bigdata/Pasted%20image%2020231221112752.png"
         title="Pasted image 20231221112752.png" /></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export JAVA_HOME<span style="color:#f92672">=</span>/usr/java
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/java
 </span></span></code></pre></div><p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -592,8 +592,8 @@ attention
         title="Pasted image 20231221113302.png" /></p>
 <h3 id="153-scala安装">1.5.3 scala安装</h3>
 <p>解压移动</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar -zxvf scala-2.12.15.tgz
-</span></span><span style="display:flex;"><span>ls
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar -zxvf scala-2.12.15.tgz
+</span></span><span class="line"><span class="cl">ls
 </span></span></code></pre></div><p>加入路径</p>
 <p><img
         class="lazyload"
@@ -614,9 +614,9 @@ attention
         title="Pasted image 20231221114816.png" /></p>
 <h3 id="154-spark安装">1.5.4 spark安装</h3>
 <p>解压移动</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar -zxvf spark-3.5.0-bin-hadoop3.tgz
-</span></span><span style="display:flex;"><span>ls
-</span></span><span style="display:flex;"><span>sudo mv spark-3.5.0-bin-hadoop3 /usr/spark
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar -zxvf spark-3.5.0-bin-hadoop3.tgz
+</span></span><span class="line"><span class="cl">ls
+</span></span><span class="line"><span class="cl">sudo mv spark-3.5.0-bin-hadoop3 /usr/spark
 </span></span></code></pre></div><p>路径添加</p>
 <p><img
         class="lazyload"
@@ -637,18 +637,18 @@ attention
         title="Pasted image 20231221120008.png" /></p>
 <h3 id="155-bashrc">1.5.5 .bashrc</h3>
 <p>最终环境路径应添加配置：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bashrc" data-lang="bashrc"><span style="display:flex;"><span><span style="color:#75715e">#my</span>
-</span></span><span style="display:flex;"><span>export JAVA_HOME<span style="color:#f92672">=</span>/usr/java
-</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$JAVA_HOME/bin:$PATH
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>export HADOOP_HOME<span style="color:#f92672">=</span>/usr/hadoop
-</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>export SCALA_HOME<span style="color:#f92672">=</span>/usr/scala
-</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$SCALA_HOME/bin:$PATH
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>export SPARK_HOME<span style="color:#f92672">=</span>/usr/spark
-</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$SPARK_HOME/bin:$PATH
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bashrc" data-lang="bashrc"><span class="line"><span class="cl"><span class="c1">#my</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/java
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_HOME</span><span class="o">=</span>/usr/hadoop
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/bin:<span class="nv">$HADOOP_HOME</span>/sbin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SCALA_HOME</span><span class="o">=</span>/usr/scala
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$SCALA_HOME</span>/bin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SPARK_HOME</span><span class="o">=</span>/usr/spark
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$SPARK_HOME</span>/bin:<span class="nv">$PATH</span>
 </span></span></code></pre></div><h1 id="2-slave0">2 slave0</h1>
 <h2 id="21-初始配置">2.1 初始配置</h2>
 <p>此处吸取第一次配时的教训，一次性设好。（Yourname:hadoop computername:slave0 username:hadoop）这样会默认生成一个有权限较高的初始用户hadoop。(同名hadoop是为了集群配置方便)</p>
@@ -711,9 +711,9 @@ attention
         alt="/asserts/bigdata/Pasted%20image%2020231221121135.png"
         title="Pasted image 20231221121135.png" /></p>
 <p>赋权（为共享文件夹)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG vboxsf <span style="color:#66d9ef">$(</span>whoami<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#这步不用做了</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#本身就能执行sudo命令所以不用再编辑sudoers组；</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo usermod -aG vboxsf <span class="k">$(</span>whoami<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#这步不用做了</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#本身就能执行sudo命令所以不用再编辑sudoers组；</span>
 </span></span></code></pre></div><h3 id="221-javahadoopscalaspark">2.2.1 java/hadoop/scala/spark</h3>
 <p>与上方流程一致，不赘述</p>
 <ul>
@@ -721,7 +721,7 @@ attention
 <ul>
 <li>先拷一份.bashrc</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp .bashrc .bashrc_bak
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp .bashrc .bashrc_bak
 </span></span></code></pre></div><pre tabindex="0"><code></code></pre></li>
 </ul>
 <p>配置见上 .bashrc的部分(master .bashrc)</p>
@@ -765,18 +765,18 @@ attention
 <h1 id="4-ssh分布式模式配置">4 ssh分布式模式配置</h1>
 <h2 id="41-修改主机名">4.1 <strong>修改主机名</strong></h2>
 <p>为了便于区分 master 节点 和 Slave 节点，可以修改各个节点的主机名（<strong>创始时已改</strong>）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vi /etc/hostname
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># master 虚拟机修改为 master</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># slave1 虚拟机修改为 slave1</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># slave2 虚拟机修改为 slave2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo vi /etc/hostname
+</span></span><span class="line"><span class="cl"><span class="c1"># master 虚拟机修改为 master</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># slave1 虚拟机修改为 slave1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># slave2 虚拟机修改为 slave2</span>
 </span></span></code></pre></div><p>（<strong>注意</strong>：只有重启 Linux 系统才能看到主机名的变化）</p>
 <h2 id="42-设置-hosts-文件">4.2 <strong>设置 hosts 文件</strong></h2>
 <p>配置 IP 与 HOSTNAME 的映射（IP 根据自己的静态ip来设置）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vi /etc/hosts
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3 台虚拟机配置形式如下 e.g.</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 192.168.13.21   master</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 192.168.13.22   slave1</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 192.168.13.23   slave2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo vi /etc/hosts
+</span></span><span class="line"><span class="cl"><span class="c1"># 3 台虚拟机配置形式如下 e.g.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 192.168.13.21   master</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 192.168.13.22   slave1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 192.168.13.23   slave2</span>
 </span></span></code></pre></div><p>master：</p>
 <p><img
         class="lazyload"
@@ -833,13 +833,13 @@ attention
         title="Pasted image 20231221140626.png" /></p>
 <h2 id="43-配置ssh-无密码登录">4.3 配置ssh 无密码登录</h2>
 <p>如果之前已经生成过公钥，必须删除原来生成的公钥</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/.ssh			<span style="color:#75715e"># 如果没有该目录，先执行一次 ssh localhost，这个 要输入用户密码</span>
-</span></span><span style="display:flex;"><span>rm ./id_rsa*		<span style="color:#75715e"># 删除之前生成的公钥(如果已经存在)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~/.ssh			<span class="c1"># 如果没有该目录，先执行一次 ssh localhost，这个 要输入用户密码</span>
+</span></span><span class="line"><span class="cl">rm ./id_rsa*		<span class="c1"># 删除之前生成的公钥(如果已经存在)</span>
 </span></span></code></pre></div><p>生成公钥和密钥</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen -t rsa	<span style="color:#75715e"># 执行该命令后，遇到提示信息，一直按 Enter 键就可以了</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#cd ~/.ssh</span>
-</span></span><span style="display:flex;"><span>cat ./id_rsa.pub &gt;&gt; ./authorized_keys	<span style="color:#75715e"># 将公钥赋予给authorized_keys</span>
-</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">644</span> authorized_keys			<span style="color:#75715e"># 修改权限</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t rsa	<span class="c1"># 执行该命令后，遇到提示信息，一直按 Enter 键就可以了</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#cd ~/.ssh</span>
+</span></span><span class="line"><span class="cl">cat ./id_rsa.pub &gt;&gt; ./authorized_keys	<span class="c1"># 将公钥赋予给authorized_keys</span>
+</span></span><span class="line"><span class="cl">sudo chmod <span class="m">644</span> authorized_keys			<span class="c1"># 修改权限</span>
 </span></span></code></pre></div><p>此时已可以免密登录ssh:master：</p>
 <p><img
         class="lazyload"
@@ -870,28 +870,28 @@ attention
 <p><strong>进一步配置：</strong></p>
 <p>做这里的时候没截图。</p>
 <p>验证tip：在终端中输入 ssh master、ssh slave1、ssh slave2，如果可直接登录，而不需要输入密码，则 ssh 无密码登录配置成功。（3个节点都是）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#在slave0中执行命令:</span>
-</span></span><span style="display:flex;"><span>scp id_rsa.pub hadoop@master:~/.ssh/id_rsa.pub.s0
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#在slave1中执行命令：</span>
-</span></span><span style="display:flex;"><span>scp id_rsa.pub hadoop@master:~/.ssh/id_rsa.pub.s1
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#进入master中执行命令,将公钥赋予给authorized_keys：</span>
-</span></span><span style="display:flex;"><span>cd ~/.ssh
-</span></span><span style="display:flex;"><span>cat id_rsa.pub.s0 &gt;&gt; authorized_keys
-</span></span><span style="display:flex;"><span>cat id_rsa.pub.s1 &gt;&gt; authorized_keys
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#将生成的包含三个节点的秘钥的authorized_keys 复制到slave0和slave1的.ssh目录下（先删除之前的）</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#s0/s1:</span>
-</span></span><span style="display:flex;"><span>rm authorized_keys
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#master:</span>
-</span></span><span style="display:flex;"><span>scp authorized_keys hadoop@slave0:~/.ssh/authorized_keys
-</span></span><span style="display:flex;"><span>scp authorized_keys hadoop@slave1:~/.ssh/authorized_keys
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#在slave0中执行命令:</span>
+</span></span><span class="line"><span class="cl">scp id_rsa.pub hadoop@master:~/.ssh/id_rsa.pub.s0
+</span></span><span class="line"><span class="cl"><span class="c1">#在slave1中执行命令：</span>
+</span></span><span class="line"><span class="cl">scp id_rsa.pub hadoop@master:~/.ssh/id_rsa.pub.s1
+</span></span><span class="line"><span class="cl"><span class="c1">#进入master中执行命令,将公钥赋予给authorized_keys：</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/.ssh
+</span></span><span class="line"><span class="cl">cat id_rsa.pub.s0 &gt;&gt; authorized_keys
+</span></span><span class="line"><span class="cl">cat id_rsa.pub.s1 &gt;&gt; authorized_keys
+</span></span><span class="line"><span class="cl"><span class="c1">#将生成的包含三个节点的秘钥的authorized_keys 复制到slave0和slave1的.ssh目录下（先删除之前的）</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#s0/s1:</span>
+</span></span><span class="line"><span class="cl">rm authorized_keys
+</span></span><span class="line"><span class="cl"><span class="c1">#master:</span>
+</span></span><span class="line"><span class="cl">scp authorized_keys hadoop@slave0:~/.ssh/authorized_keys
+</span></span><span class="line"><span class="cl">scp authorized_keys hadoop@slave1:~/.ssh/authorized_keys
 </span></span></code></pre></div><hr>
 <h3 id="错误展示">!错误展示</h3>
 <p>下面的图是执行下方指令来完成公钥分发的结果（好像不是很管用：只有master能够免密登录3个节点，但先保留着不删了）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># ssh-copy-id -i ~/.ssh/id_rsa.pub master</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># ssh-copy-id -i ~/.ssh/id_rsa.pub slave1</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># ssh-copy-id -i ~/.ssh/id_rsa.pub slave2</span>
-</span></span><span style="display:flex;"><span>scp ~/.ssh/authorized_keys hadoop@slave0:~/.ssh/	<span style="color:#75715e"># hadoop改为你的用户</span>
-</span></span><span style="display:flex;"><span>scp ~/.ssh/authorized_keys hadoop@slave1:~/.ssh/
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ssh-copy-id -i ~/.ssh/id_rsa.pub master</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh-copy-id -i ~/.ssh/id_rsa.pub slave1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh-copy-id -i ~/.ssh/id_rsa.pub slave2</span>
+</span></span><span class="line"><span class="cl">scp ~/.ssh/authorized_keys hadoop@slave0:~/.ssh/	<span class="c1"># hadoop改为你的用户</span>
+</span></span><span class="line"><span class="cl">scp ~/.ssh/authorized_keys hadoop@slave1:~/.ssh/
 </span></span></code></pre></div><p>master 传输:<img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -927,13 +927,13 @@ attention
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ch00 ubuntu启动hadoop初始配置" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ch00 ubuntu启动hadoop初始配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ch00 ubuntu启动hadoop初始配置"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ch00 ubuntu启动hadoop初始配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ch00 ubuntu启动hadoop初始配置" data-via="xxxx" data-hashtags="ubuntu,hadoop"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-hashtag="ubuntu"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ch00 ubuntu启动hadoop初始配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ch00 ubuntu启动hadoop初始配置"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/posts/%E5%A4%A7%E6%95%B0%E6%8D%AEhadoop%E9%9B%86%E7%BE%A4%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F/l0ubuntu%E5%90%AF%E5%8A%A8hadoop%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE/" data-title="ch00 ubuntu启动hadoop初始配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ubuntu/">ubuntu</a>,&nbsp;<a href="/tags/hadoop/">hadoop</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
